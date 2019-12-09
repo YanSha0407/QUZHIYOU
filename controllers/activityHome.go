@@ -145,6 +145,7 @@ func (this *ActivityHomeListController) ActivityInfo() {
 
 
 
+
 	utils.ReturnHTTPSuccess(&this.Controller,ActivityInfoJson{ActivityInfo:info,Banner:banners})
 
 	this.ServeJSON()
