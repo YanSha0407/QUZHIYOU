@@ -3,6 +3,7 @@ package controllers
 import (
 	"QUZHIYOU/models"
 	"QUZHIYOU/utils"
+	"fmt"
 	"github.com/astaxie/beego"
 	"github.com/astaxie/beego/orm"
 	"strconv"
@@ -99,9 +100,11 @@ func (this *ActivityHomeListController) ActivityList() {
 
 type ActivityInfoJson struct {
 
-	ActivityInfo  models.Tb_activity 	`json:"activityInfo"`
-	Banner        []models.Tb_banner    `json:"banner"`
+	ActivityInfo  models.TbActivity 	`json:"activityInfo"`
+	Banner        []models.TbBanner    `json:"banner"`
 }
+
+
 
 
 //获取活动详情信息
@@ -113,7 +116,7 @@ func (this *ActivityHomeListController) ActivityInfo() {
 
 	i64,_ := strconv.ParseInt(activityId,10,64)
 
-	info:=models.Tb_activity{ActivityId:i64}
+	info:=models.TbActivity{ActivityId:i64}
 
 
 
@@ -132,10 +135,15 @@ func (this *ActivityHomeListController) ActivityInfo() {
 	info.SignEndTime=info.SignEndTime[:10]
 
 
+	for k,v:=range info.Welfares{
+		fmt.Println(k,v)
+	}
+
+
 
 
 	//插入banner
-	var banners []models.Tb_banner
+	var banners []models.TbBanner
 	o.QueryTable("tb_banner").Filter("ACTIVITYID",i64).All(&banners)
 
 

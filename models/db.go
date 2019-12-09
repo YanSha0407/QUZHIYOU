@@ -9,7 +9,7 @@ import (
 
 
 
-type Tb_activity struct {
+type TbActivity struct {
 	ActivityId    int64     `orm:"pK;column(ACTIVITY_ID)" json:"activityId"`     // 活动ID
 	ActivityName  string    ` json:"activityName"` // 活动名称
 	SubName       string    `json:"subName"`
@@ -32,23 +32,23 @@ type Tb_activity struct {
 	Views         int64     ` json:"views"`                     // 浏览量
 	HtmlCon       string    ` json:"htmlCon"`
 
-	Welfares      []*Tb_welfare    `orm:"reverse(many)" json:"welfareList"`  //多个福利
+	Welfares      []*TbWelfare    `orm:"reverse(many)" json:"welfareList"`  //多个福利
 
-	Addfroms      []*Tb_address    `orm:"reverse(many)"  json:"addfroms"`
+	Addfroms      []*TbAddress    `orm:"reverse(many)"  json:"addfroms"`
 
 
 }
 
-type Tb_welfare struct {
+type TbWelfare struct {
 	WelfareID  int64  `orm:"pK;column(WELFARE_ID)" json:"welfareId"`   // 福利ID
 	Tag        string ` json:"tag"`                 // 福利类型
 	Des       string ` json:"des"`                 // 福利详细描述
 	ActivityId int64  ` orm:"column(ACTIVITY_ID)" json:"activityId"` // 活动ID
 
-	Activity  *Tb_activity  `orm:"rel(fk)" json:"activity"`
+	Activity  *TbActivity  `orm:"rel(fk)" json:"activity"`
 }
 
-type Tb_address struct {
+type TbAddress struct {
 	AddressId   int64   `orm:"pK;column(ADDRESS_ID)" json:"addressId"`     // 地址ID
 	AddressName string  `orm:"column(ADDRESS_NAME)" json:"addressName"` // 地址
 	Address     string  `orm:"column(ADDRESS)" json:"address"`           // 地址详情
@@ -57,12 +57,12 @@ type Tb_address struct {
 	Lng         float64 `orm:"column(LNG)" json:"lng"`                   // 经度
 	ActivityId  int64   `orm:"column(ACTIVITY_ID)" json:"activityId"`   // 活动ID
 
-	Activity    *Tb_activity  `orm:"rel(fk)" orm:"-" json:"activity"`
+	Activity    *TbActivity  `orm:"rel(fk)" orm:"-" json:"activity"`
 
 
 }
 
-type Tb_banner struct {
+type TbBanner struct {
 	BannerID   int64  `orm:"pK;column(BANNER_ID)" json:"banner_id"`
 	ActivityId int64  `orm:"column(ACTIVITY_ID)" json:"activity_id"` // 活动ID
 	Url        string `orm:"column(URL)" json:"url"`                 // 图片URL
@@ -129,10 +129,10 @@ func init() {
 	fmt.Println("连接成功")
 
 	// register model
-	orm.RegisterModel(new(Tb_activity))
-	orm.RegisterModel(new(Tb_welfare))
-	orm.RegisterModel(new(Tb_banner))
-	orm.RegisterModel(new(Tb_address))
+	orm.RegisterModel(new(TbActivity))
+	orm.RegisterModel(new(TbWelfare))
+	orm.RegisterModel(new(TbBanner))
+	orm.RegisterModel(new(TbAddress))
 
 
 }
