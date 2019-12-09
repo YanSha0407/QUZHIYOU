@@ -34,7 +34,7 @@ type Tb_activity struct {
 
 	Welfares      []*Tb_welfare    `orm:"reverse(many)" json:"welfareList"`  //多个福利
 
-	Addfroms      []*Tb_address    `orm:"reverse(many)" json:"addfroms"`
+	Addfroms      []*Tb_address    `orm:"reverse(many)"  json:"addfroms"`
 
 
 }
@@ -57,7 +57,7 @@ type Tb_address struct {
 	Lng         float64 `orm:"column(LNG)" json:"lng"`                   // 经度
 	ActivityId  int64   `orm:"column(ACTIVITY_ID)" json:"activityId"`   // 活动ID
 
-	Activity    *Tb_activity  `orm:"rel(fk)" json:"actfrom"`
+	Activity    *Tb_activity  `orm:"rel(fk)" orm:"-" json:"activity"`
 
 
 }
