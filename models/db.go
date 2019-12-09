@@ -26,39 +26,53 @@ type Tb_activity struct {
 	Author        string    ` json:"author"`                   // 创建者
 	DateAdd       time.Time ` json:"dateAdd"`               // 活动创建时间
 	DateUpdate    time.Time ` json:"dateUpdate"`         // 活动更新时间
-	SignStartTime time.Time ` json:"sign_start_time"` // 报名开始时间
-	SignEndTime   time.Time ` json:"sign_end_time"`     // 报名结束时间
+	SignStartTime  string ` json:"signStartTime"` // 报名开始时间
+	SignEndTime   string ` json:"signEndTime"`     // 报名结束时间
 	ActiveTime    time.Time ` json:"active_time"`         // 活动时间
 	Views         int64     ` json:"views"`                     // 浏览量
 	HtmlCon       string    ` json:"htmlCon"`
-	Welfares      []*Tb_welfare  `orm:"reverse(many)" json:"welfareList"`
-}
 
+	Welfares      []*Tb_welfare    `orm:"reverse(many)" json:"welfareList"`  //多个福利
+
+	Addfroms      []*Tb_address    `orm:"reverse(many)" json:"addfroms"`
+
+
+}
 
 type Tb_welfare struct {
 	WelfareID  int64  `orm:"pK;column(WELFARE_ID)" json:"welfareId"`   // 福利ID
 	Tag        string ` json:"tag"`                 // 福利类型
 	Des       string ` json:"des"`                 // 福利详细描述
 	ActivityId int64  ` orm:"column(ACTIVITY_ID)" json:"activityId"` // 活动ID
+
 	Activity  *Tb_activity  `orm:"rel(fk)" json:"activity"`
 }
 
+type Tb_address struct {
+	AddressId   int64   `orm:"pK;column(ADDRESS_ID)" json:"addressId"`     // 地址ID
+	AddressName string  `orm:"column(ADDRESS_NAME)" json:"addressName"` // 地址
+	Address     string  `orm:"column(ADDRESS)" json:"address"`           // 地址详情
+	Type        int64   `orm:"column(TYPE)" json:"type"`                 // 地址类型：1-集合地/2-目的地
+	Lat        float64  `orm:"column(LAT)" json:"lat"`                   // 纬度
+	Lng         float64 `orm:"column(LNG)" json:"lng"`                   // 经度
+	ActivityId  int64   `orm:"column(ACTIVITY_ID)" json:"activityId"`   // 活动ID
+
+	Activity    *Tb_activity  `orm:"rel(fk)" json:"actfrom"`
+
+
+}
 
 type Tb_banner struct {
 	BannerID   int64  `orm:"pK;column(BANNER_ID)" json:"banner_id"`
-	ACTIVITYID int64  `orm:"activity_id;column(ACTIVITY_ID)" json:"activity_id"` // 活动ID
-	Url        string `orm:"url;column(URL)" json:"url"`                 // 图片URL
+	ActivityId int64  `orm:"column(ACTIVITY_ID)" json:"activity_id"` // 活动ID
+	Url        string `orm:"column(URL)" json:"url"`                 // 图片URL
 }
 
-type tb_address struct {
-	ADDRESSID   int64   `orm:"address_id" json:"address_id"`     // 地址ID
-	ADDRESSNAME string  `orm:"address_name" json:"address_name"` // 地址
-	ADDRESS     string  `orm:"address" json:"address"`           // 地址详情
-	TYPE        int64   `orm:"type" json:"type"`                 // 地址类型：1-集合地/2-目的地
-	LAT         float64 `orm:"lat" json:"lat"`                   // 纬度
-	LNG         float64 `orm:"lng" json:"lng"`                   // 经度
-	ACTIVITYID  int64   `orm:"activity_id" json:"activity_id"`   // 活动ID
-}
+
+
+
+
+
 
 type tb_enroll struct {
 	ENROLLID       int64  `orm:"enroll_id" json:"enroll_id"`               // 报名表ID
@@ -118,6 +132,7 @@ func init() {
 	orm.RegisterModel(new(Tb_activity))
 	orm.RegisterModel(new(Tb_welfare))
 	orm.RegisterModel(new(Tb_banner))
+	orm.RegisterModel(new(Tb_address))
 
 
 }

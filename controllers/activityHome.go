@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"github.com/astaxie/beego"
 	"github.com/astaxie/beego/orm"
+	"reflect"
 	"strconv"
 )
 
@@ -101,6 +102,7 @@ func (this *ActivityHomeListController) ActivityList() {
 type ActivityInfoJson struct {
 
 	ActivityInfo  models.Tb_activity 	`json:"activityInfo"`
+	Banner        []models.Tb_banner    `json:"banner"`
 }
 
 
@@ -108,16 +110,35 @@ type ActivityInfoJson struct {
 func (this *ActivityHomeListController) ActivityInfo() {
 
 	o:=orm.NewOrm()
+
 	activityId := this.GetString("activityId")
 
 	i64,_ := strconv.ParseInt(activityId,10,64)
 
 	info:=models.Tb_activity{ActivityId:i64}
-	o.Read(&info)
-	_,err:=o.LoadRelated(&info,"Welfares")
-	if err!=nil{
-		fmt.Println(err,"99999999")
-	}
+
+
+
+	o.QueryTable("tb_activity").Filter("ActivityId",i64).One(&info)
+
+
+
+	o.LoadRelated(&info,"Welfares")
+
+	o.LoadRelated(&info,"Addfroms")
+
+	fmt.Println(info.ActivityName,info.SignStartTime,reflect.TypeOf(info.SignStartTime))
+
+
+	info.SignStartTime=info.SignStartTime[:10]
+	info.SignEndTime=info.SignEndTime[:10]
+
+
+
+
+	//插入banner
+	var banners []models.Tb_banner
+	o.QueryTable("tb_banner").Filter("ACTIVITYID",i64).All(&banners)
 
 
 
@@ -125,7 +146,9 @@ func (this *ActivityHomeListController) ActivityInfo() {
 
 
 
-	utils.ReturnHTTPSuccess(&this.Controller,ActivityInfoJson{ActivityInfo:info})
+
+
+	utils.ReturnHTTPSuccess(&this.Controller,ActivityInfoJson{ActivityInfo:info,Banner:banners})
 
 	this.ServeJSON()
 
