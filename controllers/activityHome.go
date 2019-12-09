@@ -121,6 +121,7 @@ func (this *ActivityHomeListController) ActivityInfo() {
 
 
 
+
 	o.LoadRelated(&info,"Welfares")
 
 	o.LoadRelated(&info,"Addfroms")
@@ -136,6 +137,7 @@ func (this *ActivityHomeListController) ActivityInfo() {
 	//插入banner
 	var banners []models.Tb_banner
 	o.QueryTable("tb_banner").Filter("ACTIVITYID",i64).All(&banners)
+
 
 
 
