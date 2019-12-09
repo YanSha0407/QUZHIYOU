@@ -6,7 +6,6 @@ import (
 	"fmt"
 	"github.com/astaxie/beego"
 	"github.com/astaxie/beego/orm"
-	"reflect"
 	"strconv"
 )
 
@@ -127,11 +126,16 @@ func (this *ActivityHomeListController) ActivityInfo() {
 
 	o.LoadRelated(&info,"Addfroms")
 
-	fmt.Println(info.ActivityName,info.SignStartTime,reflect.TypeOf(info.SignStartTime))
 
 
 	info.SignStartTime=info.SignStartTime[:10]
 	info.SignEndTime=info.SignEndTime[:10]
+	a:=info.Welfares
+	for _,v:=range a{
+
+		fmt.Println(v)
+
+	}
 
 
 
