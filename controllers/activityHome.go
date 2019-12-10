@@ -155,7 +155,6 @@ func (this *ActivityHomeListController) ActivityInfo() {
 	info.Addtos=addto
 
 
-
 	//插入banner
 	var banners []models.TbBanner
 	o.QueryTable("tb_banner").Filter("ACTIVITYID",i64).All(&banners)

@@ -1,7 +1,6 @@
 package models
 
 import (
-	"fmt"
 	"github.com/astaxie/beego/orm"
 	_ "github.com/go-sql-driver/mysql"
 	"time"
@@ -125,15 +124,17 @@ type tb_user struct {
 func init() {
 
 	// set default database
-	orm.RegisterDataBase("default", "mysql", "root:123qaz!@#@tcp(39.97.230.148:3306)/qzy_official_service?charset=utf8", 30)
+	orm.RegisterDataBase("default", "mysql", "root:123qaz!@#@tcp(39.97.230.148:3306)/qzy_official_service?charset=utf8")
+	//orm.RegisterDataBase("default", "mysql", "root:loveys1314@tcp(127.0.0.1:3306)/qzy_official_service?charset=utf8")
 
-	fmt.Println("连接成功")
+	orm.SetMaxIdleConns("default",1000)
+	orm.SetMaxOpenConns("default",2000)
+
+
 
 	// register model
-	orm.RegisterModel(new(TbActivity))
-	orm.RegisterModel(new(TbWelfare))
-	orm.RegisterModel(new(TbBanner))
-	orm.RegisterModel(new(TbAddress))
+	orm.RegisterModel(new(TbActivity),new(TbWelfare),new(TbBanner),new(TbAddress))
+
 
 
 }
