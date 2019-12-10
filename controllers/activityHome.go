@@ -3,6 +3,7 @@ package controllers
 import (
 	"QUZHIYOU/models"
 	"QUZHIYOU/utils"
+	"fmt"
 	"github.com/astaxie/beego"
 	"github.com/astaxie/beego/orm"
 	"strconv"
@@ -134,6 +135,24 @@ func (this *ActivityHomeListController) ActivityInfo() {
 
 	info.SignStartTime=info.SignStartTime[:10]
 	info.SignEndTime=info.SignEndTime[:10]
+
+	fmt.Println(info.Addfroms)
+
+
+	var add []*models.TbAddress
+	var addto []*models.TbAddress
+
+	for _,v:=range info.Addfroms{
+		//1出发地 2目的地
+		if v.Type ==1{
+			add = append(add, v)
+		}else if v.Type==2{
+			addto=append(addto,v)
+		}
+	}
+
+	info.Addfroms=add
+	info.Addtos=addto
 
 
 
