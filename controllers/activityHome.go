@@ -58,7 +58,7 @@ func updateJsonKeysTopic(vals []orm.Params) {
 
 //获取首页列表
 
-func (this *ActivityHomeListController) ActivityList() {
+ func (this *ActivityHomeListController) ActivityList() {
 
 	o := orm.NewOrm()
 
@@ -86,6 +86,7 @@ func (this *ActivityHomeListController) ActivityList() {
 		OrderBy("-ActivityId").
 		Limit(intsize, start).
 		Values(&activitys, "ActivityId", "ActivityName", "SubName", "Tags", "TotalNum", "Image", "OriginalPrice", "SignStartTime", "SignEndTime", "Price", "Status")
+
 
 	updateJsonKeysTopic(activitys)
 
