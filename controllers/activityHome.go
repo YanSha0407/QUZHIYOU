@@ -3,7 +3,6 @@ package controllers
 import (
 	"QUZHIYOU/models"
 	"QUZHIYOU/utils"
-	"fmt"
 	"github.com/astaxie/beego"
 	"github.com/astaxie/beego/orm"
 	"strconv"
@@ -129,17 +128,12 @@ func (this *ActivityHomeListController) ActivityInfo() {
 	o.LoadRelated(&info,"Welfares")
 
 	o.LoadRelated(&info,"Addfroms")
+	o.LoadRelated(&info,"Addtos")
 
 
 
 	info.SignStartTime=info.SignStartTime[:10]
 	info.SignEndTime=info.SignEndTime[:10]
-
-
-	for k,v:=range info.Welfares{
-		fmt.Println(k,v)
-	}
-
 
 
 

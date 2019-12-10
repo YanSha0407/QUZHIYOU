@@ -34,7 +34,8 @@ type TbActivity struct {
 
 	Welfares      []*TbWelfare    `orm:"reverse(many)" json:"welfareList"`  //多个福利
 
-	Addfroms      []*TbAddress    `orm:"reverse(many)"  json:"addfroms"`
+	Addfroms      []*TbAddress    `orm:"reverse(many)"  json:"gatherAddList"`
+	Addtos      []*TbAddress    `orm:"reverse(many)"  json:"destinationList"`
 
 
 }
@@ -43,9 +44,9 @@ type TbWelfare struct {
 	WelfareID  int64  `orm:"pK;column(WELFARE_ID)" json:"welfareId"`   // 福利ID
 	Tag        string ` json:"tag"`                 // 福利类型
 	Des       string ` json:"des"`                 // 福利详细描述
-	ActivityId int64  ` orm:"column(ACTIVITY_ID)" json:"activityId"` // 活动ID
+	ActivityId int64  ` orm:"column(ACTIVITY_ID)" json:"-"` // 活动ID
 
-	Activity  *TbActivity  `orm:"rel(fk)" json:"activity"`
+	Activity  *TbActivity  `orm:"rel(fk)" json:"-"`
 }
 
 type TbAddress struct {
@@ -55,9 +56,9 @@ type TbAddress struct {
 	Type        int64   `orm:"column(TYPE)" json:"type"`                 // 地址类型：1-集合地/2-目的地
 	Lat        float64  `orm:"column(LAT)" json:"lat"`                   // 纬度
 	Lng         float64 `orm:"column(LNG)" json:"lng"`                   // 经度
-	ActivityId  int64   `orm:"column(ACTIVITY_ID)" json:"activityId"`   // 活动ID
+	ActivityId  int64   `orm:"column(ACTIVITY_ID)" json:"-"`   // 活动ID
 
-	Activity    *TbActivity  `orm:"rel(fk)" orm:"-" json:"activity"`
+	Activity    *TbActivity  `orm:"rel(fk)"  json:"-"`
 
 
 }
