@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"github.com/astaxie/beego"
 	"github.com/astaxie/beego/orm"
+	"github.com/jinzhu/gorm"
 	"strconv"
 )
 
@@ -13,54 +14,32 @@ type ActivityHomeListController struct {
 	beego.Controller
 }
 
-func updateJsonKeysTopic(vals []orm.Params) {
 
-	for _, val := range vals {
-		for k, v := range val {
-			switch k {
-			case "ActivityId":
-				delete(val, k)
-				val["activityId"] = v
-			case "ActivityName":
-				delete(val, k)
-				val["activityName"] = v
-			case "SubName":
-				delete(val, k)
-				val["subName"] = v
-			case "Tags":
-				delete(val, k)
-				val["tags"] = v
-			case "TotalNum":
-				delete(val, k)
-				val["totalNum"] = v
-			case "Image":
-				delete(val, k)
-				val["image"] = v
-			case "OriginalPrice":
-				delete(val, k)
-				val["originalPrice"] = v
-			case "SignStartTime":
-				delete(val, k)
-				val["signStartTime"] = v
-			case "SignEndTime":
-				delete(val, k)
-				val["signEndTime"] = v
-			case "Price":
-				delete(val, k)
-				val["price"] = v
-			case "Status":
-				delete(val, k)
-				val["status"] = v
-			}
-		}
+var dbmain *gorm.DB
+
+func init() {
+
+	db, err := gorm.Open("mysql",
+		"root:123qaz!@#@tcp(39.97.230.148:3306)/qzy_official_service?charset=utf8&parseTime=True&loc=Local")
+	dbmain=db
+
+	dbmain.DB().SetMaxIdleConns(10)
+	dbmain.DB().SetMaxOpenConns(300)
+	if err != nil {
+		fmt.Println(err)
+		return
+	}else {
+		fmt.Println("connection succedssed")
 	}
+
+	dbmain.SingularTable(true)
+
 }
+
 
 //获取首页列表
 
  func (this *ActivityHomeListController) ActivityList() {
-
-	o := orm.NewOrm()
 
 	page := this.GetString("page")
 	size := this.GetString("size")
@@ -80,17 +59,10 @@ func updateJsonKeysTopic(vals []orm.Params) {
 
 	start := (intpage - 1) * intsize
 
-	var activitys []orm.Params
-
-	o.QueryTable("tb_activity").
-		OrderBy("-ActivityId").
-		Limit(intsize, start).
-		Values(&activitys, "ActivityId", "ActivityName", "SubName", "Tags", "TotalNum", "Image", "OriginalPrice", "SignStartTime", "SignEndTime", "Price", "Status")
+	var activitys []*models.TbActivity
 
 
-	updateJsonKeysTopic(activitys)
-
-
+	dbmain.Order("ACTIVITY_ID desc").Select("ACTIVITY_NAME,SUB_NAME,IMAGE,ORIGINAL_PRICE,TOTAL_NUM,PRICE_TAG,PRICE,STATUS").Limit(intsize).Offset(start).Find(&activitys)
 
 	utils.ReturnHTTPSuccess(&this.Controller, &activitys)
 
@@ -100,7 +72,6 @@ func updateJsonKeysTopic(vals []orm.Params) {
 
 
 type ActivityInfoJson struct {
-
 	ActivityInfo  models.TbActivity 	`json:"activityInfo"`
 	Banner        []models.TbBanner    `json:"banner"`
 }
