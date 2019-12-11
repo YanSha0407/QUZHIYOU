@@ -33,9 +33,9 @@ type TbActivity struct {
 //	关联字段
     Welfares      []*TbWelfare  `json:"welfareList" gorm:"foreignkey:ActivityId" `
 
-	AddressFrom   []*TbAddress  `json:"address_from" gorm:"foreignkey:ActivityId"`
+	AddressFrom   []*TbAddress  `json:"gatherAddList" gorm:"foreignkey:ActivityId"`
 
-	AddressTo     []*TbAddress   `json:"address_to"  gorm:"foreignkey:ActivityId"`
+	AddressTo     []*TbAddress   `json:"destinationList"  gorm:"foreignkey:ActivityId"`
 
 }
 

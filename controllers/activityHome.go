@@ -58,7 +58,7 @@ func (this *ActivityHomeListController) ActivityList() {
 
 	var activitys []*models.TbActivity
 
-	dbmain.Select("ACTIVITY_ID,ACTIVITY_NAME,SUB_NAME,IMAGE,ORIGINAL_PRICE,TOTAL_NUM,PRICE_TAG,PRICE,STATUS").Limit(intsize).Offset(start).Find(&activitys)
+	dbmain.Select("ACTIVITY_ID,ACTIVITY_NAME,SUB_NAME,IMAGE,ORIGINAL_PRICE,TOTAL_NUM,PRICE_TAG,PRICE,STATUS,TAGS").Limit(intsize).Offset(start).Find(&activitys)
 
 	utils.ReturnHTTPSuccess(&this.Controller, &activitys)
 
@@ -85,19 +85,32 @@ func (this *ActivityHomeListController) ActivityInfo() {
 	dbmain.First(&activityInfo).
 		Model(&activityInfo).
 		Related(&activityInfo.Welfares,"ActivityId").
-		Where("ACTIVITY_ID = ? ",i64).
-		Find(&activityInfo.Welfares)
-
-
-	dbmain.First(&activityInfo).
-		Model(&activityInfo).
 		Related(&activityInfo.AddressFrom,"ActivityId").
+		Related(&activityInfo.AddressTo,"ActivityId").
 		Where("ACTIVITY_ID = ? ",i64).
-		Find(&activityInfo.AddressFrom)
+		Find(&activityInfo.Welfares).
+		Find(&activityInfo.AddressFrom).
+		Find(&activityInfo.AddressTo)
+
 
 		activityInfo.SignStartTime=activityInfo.SignStartTime[:10]
 		activityInfo.SignEndTime=activityInfo.SignEndTime[:10]
 
+
+	    var add []*models.TbAddress
+		var addto []*models.TbAddress
+
+		for _,v:=range activityInfo.AddressFrom{
+			//1出发地 2目的地
+			if v.Type ==1{
+				add = append(add, v)
+			}else if v.Type==2{
+				addto=append(addto,v)
+			}
+		}
+
+	activityInfo.AddressFrom=add
+	activityInfo.AddressTo=addto
 
 
 
