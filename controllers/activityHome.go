@@ -32,7 +32,8 @@ func init() {
 	}
 
 	dbmain.SingularTable(true)
-
+	dbmain.AutoMigrate(&models.TbActivity{},&models.TbBanner{})
+	dbmain.LogMode(true)
 }
 
 
@@ -72,7 +73,7 @@ func init() {
 
 type ActivityInfoJson struct {
 	ActivityInfo  models.TbActivity 	`json:"activityInfo"`
-	Banner        []models.TbBanner    `json:"banner"`
+	Banner        []*models.TbBanner    `json:"banner"`
 }
 
 
@@ -86,19 +87,19 @@ func (this *ActivityHomeListController) ActivityInfo() {
 
 
 
+	 activityInfo:=models.TbActivity{ActivityId:i64}
 
-	activityInfo:=models.TbActivity{ActivityId:i64}
-
-	 dbmain.First(&activityInfo)
+	dbmain.First(&activityInfo)
 
 
-	var banners []models.TbBanner
+	var banners []*models.TbBanner
 
-	dbmain.Where(&models.TbBanner{ActivityId:i64}).Find(&banners)
+	dbmain.Where("ACTIVITY_ID=?",i64).Find(&banners)
 
-	fmt.Println(banners,"---------")
 
-	utils.ReturnHTTPSuccess(&this.Controller,ActivityInfoJson{ActivityInfo:activityInfo})
+	fmt.Println(banners[0].URL,"---------")
+
+	utils.ReturnHTTPSuccess(&this.Controller,ActivityInfoJson{ActivityInfo:activityInfo,Banner:banners})
 
    this.ServeJSON()
 
