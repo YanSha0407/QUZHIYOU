@@ -83,11 +83,11 @@ func (this *ActivityHomeListController) ActivityInfo() {
 
 
 	dbmain.First(&activityInfo).
+		Where("ACTIVITY_ID = ? ",i64).
 		Model(&activityInfo).
 		Related(&activityInfo.Welfares,"ActivityId").
 		Related(&activityInfo.AddressFrom,"ActivityId").
 		Related(&activityInfo.AddressTo,"ActivityId").
-		Where("ACTIVITY_ID = ? ",i64).
 		Find(&activityInfo.Welfares).
 		Find(&activityInfo.AddressFrom).
 		Find(&activityInfo.AddressTo)
