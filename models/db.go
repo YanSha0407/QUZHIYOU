@@ -29,8 +29,23 @@ type TbActivity struct {
 	ActiveTime    time.Time ` json:"active_time,omitempty" gorm:"column:ACTIVE_TIME"`         // 活动时间
 	Views         int64     ` json:"views,omitempty" gorm:"column:VIEWS"`                     // 浏览量
 	HtmlCon       string    ` json:"htmlCon,omitempty" gorm:"column:HTML_CON"`
+
+//	关联字段
+    Welfares      []*TbWelfare  `json:"welfareList" gorm:"foreignkey:ActivityId" `
+
+	AddressFrom   []*TbAddress  `json:"address_from" gorm:"foreignkey:ActivityId"`
+
+	AddressTo     []*TbAddress   `json:"address_to"  gorm:"foreignkey:ActivityId"`
+
 }
 
+type TbWelfare struct {
+	WelfareID  int64  `gorm:"primary_key;column:WELFARE_ID" json:"welfareId"`   // 福利ID
+	Tag        string `gorm:"column:TAG" json:"tag"`                 // 福利类型
+	Des       string ` gorm:"column:DES"json:"des"`                 // 福利详细描述
+	ActivityId int64  `gorm:"index;column:ACTIVITY_ID" json:"activityId"` // 活动ID
+
+}
 
 type TbBanner struct {
 	BannerID   int64  ` gorm:"primary_key;column:BANNER_ID" json:"banner_id"`
@@ -39,22 +54,16 @@ type TbBanner struct {
 }
 
 
-type TbWelfare struct {
-	WelfareID  int64  `gorm:"pK;column:WELFARE_ID" json:"welfareId"`   // 福利ID
-	Tag        string `gorm:"pK;column:TAG" json:"tag"`                 // 福利类型
-	Des       string ` gorm:"pK;column:DES"json:"des"`                 // 福利详细描述
-	ActivityId int64  `gorm:"pK;column:ACTIVITY_ID" json:"-"` // 活动ID
 
-}
 
 type TbAddress struct {
-	AddressId   int64   `orm:"pK;column(ADDRESS_ID)" json:"addressId"`     // 地址ID
-	AddressName string  `orm:"column(ADDRESS_NAME)" json:"addressName"` // 地址
-	Address     string  `orm:"column(ADDRESS)" json:"address"`           // 地址详情
-	Type        int64   `orm:"column(TYPE)" json:"type"`                 // 地址类型：1-集合地/2-目的地
-	Lat        float64  `orm:"column(LAT)" json:"lat"`                   // 纬度
-	Lng         float64 `orm:"column(LNG)" json:"lng"`                   // 经度
-	ActivityId  int64   `orm:"column(ACTIVITY_ID)" json:"-"`   // 活动ID
+	AddressId   int64   `gorm:"primary_key;column:ADDRESS_ID" json:"addressId"`     // 地址ID
+	AddressName string  `gorm:"column:ADDRESS_NAME" json:"addressName"` // 地址
+	Address     string  `gorm:"column:ADDRESS" json:"address"`           // 地址详情
+	Type        int64   `gorm:"column:TYPE" json:"type"`                 // 地址类型：1-集合地/2-目的地
+	Lat        float64  `gorm:"column:LAT" json:"lat"`                   // 纬度
+	Lng         float64 `gorm:"column:LNG" json:"lng"`                   // 经度
+	ActivityId  int64   `gorm:"index;column:ACTIVITY_ID" json:"activityId"`   // 活动ID
 
 }
 

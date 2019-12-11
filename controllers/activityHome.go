@@ -79,9 +79,30 @@ func (this *ActivityHomeListController) ActivityInfo() {
 
 	activityInfo := models.TbActivity{ActivityId: i64}
 
-	dbmain.First(&activityInfo)
+
+
+
+	dbmain.First(&activityInfo).
+		Model(&activityInfo).
+		Related(&activityInfo.Welfares,"ActivityId").
+		Where("ACTIVITY_ID = ? ",i64).
+		Find(&activityInfo.Welfares)
+
+
+	dbmain.First(&activityInfo).
+		Model(&activityInfo).
+		Related(&activityInfo.AddressFrom,"ActivityId").
+		Where("ACTIVITY_ID = ? ",i64).
+		Find(&activityInfo.AddressFrom)
+
 		activityInfo.SignStartTime=activityInfo.SignStartTime[:10]
 		activityInfo.SignEndTime=activityInfo.SignEndTime[:10]
+
+
+
+
+
+
 
 	var banners []*models.TbBanner
 
