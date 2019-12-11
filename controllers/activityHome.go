@@ -20,9 +20,8 @@ var dbmain *gorm.DB
 func init() {
 
 	db, err := gorm.Open("mysql",
-		"root:123qaz!@#@tcp(39.97.230.148:3306)/qzy_official_service?charset=utf8&parseTime=True&loc=Local")
+		"root:loveys1314@tcp(127.0.0.1:3306)/qzy_official_service?charset=utf8&parseTime=True&loc=Local")
 	dbmain=db
-
 	dbmain.DB().SetMaxIdleConns(10)
 	dbmain.DB().SetMaxOpenConns(300)
 	if err != nil {
@@ -62,7 +61,7 @@ func init() {
 	var activitys []*models.TbActivity
 
 
-	dbmain.Order("ACTIVITY_ID desc").Select("ACTIVITY_NAME,SUB_NAME,IMAGE,ORIGINAL_PRICE,TOTAL_NUM,PRICE_TAG,PRICE,STATUS").Limit(intsize).Offset(start).Find(&activitys)
+	dbmain.Select("ACTIVITY_ID,ACTIVITY_NAME,SUB_NAME,IMAGE,ORIGINAL_PRICE,TOTAL_NUM,PRICE_TAG,PRICE,STATUS").Limit(intsize).Offset(start).Find(&activitys)
 
 	utils.ReturnHTTPSuccess(&this.Controller, &activitys)
 
@@ -82,6 +81,46 @@ type ActivityInfoJson struct {
 //获取活动详情信息
 func (this *ActivityHomeListController) ActivityInfo() {
 
+	activityId := this.GetString("activityId")
+	i64,_ := strconv.ParseInt(activityId,10,64)
+
+
+
+
+	activityInfo:=models.TbActivity{ActivityId:i64}
+
+	 dbmain.First(&activityInfo)
+
+
+	var banners []models.TbBanner
+
+	dbmain.Where(&models.TbBanner{ActivityId:i64}).Find(&banners)
+
+	fmt.Println(banners,"---------")
+
+	utils.ReturnHTTPSuccess(&this.Controller,ActivityInfoJson{ActivityInfo:activityInfo})
+
+   this.ServeJSON()
+
+
+
+
+
+
+
+
+
+}
+
+
+
+
+
+
+//back
+
+func (this *ActivityHomeListController) ActivityInfoback() {
+
 	o:=orm.NewOrm()
 
 	activityId := this.GetString("activityId")
@@ -93,7 +132,6 @@ func (this *ActivityHomeListController) ActivityInfo() {
 
 
 	o.QueryTable("tb_activity").Filter("ActivityId",i64).One(&info)
-
 
 
 
@@ -129,14 +167,6 @@ func (this *ActivityHomeListController) ActivityInfo() {
 	//插入banner
 	var banners []models.TbBanner
 	o.QueryTable("tb_banner").Filter("ACTIVITYID",i64).All(&banners)
-
-
-
-
-
-
-
-
 
 
 

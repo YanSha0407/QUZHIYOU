@@ -9,7 +9,7 @@ import (
 
 
 type TbActivity struct {
-	ActivityId    int64     `orm:"pK;column(ACTIVITY_ID)" json:"activityId"`     // 活动ID
+	ActivityId    int64     `orm:"pK;column(ACTIVITY_ID)" gorm:"primary_key,column(ACTIVITY_ID)" json:"activityId"`     // 活动ID
 	ActivityName  string    ` json:"activityName,omitempty" gorm:"column:ACTIVITY_NAME"` // 活动名称
 	SubName       string    `json:"subName,omitempty" gorm:"column:SUB_NAME"`
 	Tags          string    ` json:"tags,omitempty" gorm:"column:TAGS"`                     // 首页标志：#免费 #旅游 #香山 #吃喝玩乐 #一日游
@@ -63,7 +63,7 @@ type TbAddress struct {
 }
 
 type TbBanner struct {
-	BannerID   int64  `orm:"pK;column(BANNER_ID)" json:"banner_id"`
+	BannerID   int64  `orm:"pK;column(BANNER_ID)" gorm:"primary_key;column(BANNER_ID)" json:"banner_id"`
 	ActivityId int64  `orm:"column(ACTIVITY_ID)" json:"activity_id"` // 活动ID
 	Url        string `orm:"column(URL)" json:"url"`                 // 图片URL
 }
