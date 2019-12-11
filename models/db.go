@@ -40,10 +40,10 @@ type TbBanner struct {
 
 
 type TbWelfare struct {
-	WelfareID  int64  `orm:"pK;column(WELFARE_ID)" json:"welfareId"`   // 福利ID
-	Tag        string ` json:"tag"`                 // 福利类型
-	Des       string ` json:"des"`                 // 福利详细描述
-	ActivityId int64  ` orm:"column(ACTIVITY_ID)" json:"-"` // 活动ID
+	WelfareID  int64  `gorm:"pK;column:WELFARE_ID" json:"welfareId"`   // 福利ID
+	Tag        string `gorm:"pK;column:TAG" json:"tag"`                 // 福利类型
+	Des       string ` gorm:"pK;column:DES"json:"des"`                 // 福利详细描述
+	ActivityId int64  `gorm:"pK;column:ACTIVITY_ID" json:"-"` // 活动ID
 
 }
 

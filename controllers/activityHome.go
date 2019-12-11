@@ -59,7 +59,7 @@ func (this *ActivityHomeListController) ActivityList() {
 	var activitys []*models.TbActivity
 
 	dbmain.Select("ACTIVITY_ID,ACTIVITY_NAME,SUB_NAME,IMAGE,ORIGINAL_PRICE,TOTAL_NUM,PRICE_TAG,PRICE,STATUS").Limit(intsize).Offset(start).Find(&activitys)
-	
+
 	utils.ReturnHTTPSuccess(&this.Controller, &activitys)
 
 	this.ServeJSON()
