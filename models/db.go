@@ -1,17 +1,14 @@
 package models
 
 import (
-	"github.com/astaxie/beego/orm"
 	_ "github.com/go-sql-driver/mysql"
-	"github.com/jinzhu/gorm"
 	"time"
 )
 
 
 
 type TbActivity struct {
-	gorm.Model
-	ActivityId    int64     `orm:"pK;column(ACTIVITY_ID)" gorm:"primary_key,column(ACTIVITY_ID)" json:"activityId"`     // 活动ID
+	ActivityId    int64     ` gorm:"primary_key;column:ACTIVITY_ID" json:"activityId"`     // 活动ID
 	ActivityName  string    ` json:"activityName,omitempty" gorm:"column:ACTIVITY_NAME"` // 活动名称
 	SubName       string    `json:"subName,omitempty" gorm:"column:SUB_NAME"`
 	Tags          string    ` json:"tags,omitempty" gorm:"column:TAGS"`                     // 首页标志：#免费 #旅游 #香山 #吃喝玩乐 #一日游
@@ -27,19 +24,20 @@ type TbActivity struct {
 	Author        string    ` json:"author,omitempty" gorm:"column:AUTHOR"`                   // 创建者
 	DateAdd       time.Time ` json:"dateAdd,omitempty" gorm:"column:DATE_ADD"`               // 活动创建时间
 	DateUpdate    time.Time ` json:"dateUpdate,omitempty" gorm:"column:DATE_UPDATE"`         // 活动更新时间
-	SignStartTime  string ` json:"signStartTime,omitempty" gorm:"column:SIGN_START_TIME"` // 报名开始时间
-	SignEndTime   string ` json:"signEndTime,omitempty" gorm:"column:SIGN_END_TIME"`     // 报名结束时间
+	SignStartTime  string   ` json:"signStartTime,omitempty" gorm:"column:SIGN_START_TIME"` // 报名开始时间
+	SignEndTime   string    ` json:"signEndTime,omitempty" gorm:"column:SIGN_END_TIME"`     // 报名结束时间
 	ActiveTime    time.Time ` json:"active_time,omitempty" gorm:"column:ACTIVE_TIME"`         // 活动时间
 	Views         int64     ` json:"views,omitempty" gorm:"column:VIEWS"`                     // 浏览量
 	HtmlCon       string    ` json:"htmlCon,omitempty" gorm:"column:HTML_CON"`
-
-	Welfares      []*TbWelfare    `orm:"reverse(many)" json:"welfareList,omitempty"`  //多个福利
-
-	Addfroms      []*TbAddress    `orm:"reverse(many)"  json:"gatherAddList,omitempty"`
-	Addtos      []*TbAddress    `orm:"reverse(many)"  json:"destinationList,omitempty"`
-
-
 }
+
+
+type TbBanner struct {
+	BannerID   int64  ` gorm:"primary_key;column:BANNER_ID" json:"banner_id"`
+	ActivityId int64  ` gorm:"column:ACTIVITY_ID" json:"activityId"` // 活动ID
+	URL       string `  gorm:"column:URL" json:"url"`                 // 图片URL
+}
+
 
 type TbWelfare struct {
 	WelfareID  int64  `orm:"pK;column(WELFARE_ID)" json:"welfareId"`   // 福利ID
@@ -47,7 +45,6 @@ type TbWelfare struct {
 	Des       string ` json:"des"`                 // 福利详细描述
 	ActivityId int64  ` orm:"column(ACTIVITY_ID)" json:"-"` // 活动ID
 
-	Activity  *TbActivity  `orm:"rel(fk)" json:"-"`
 }
 
 type TbAddress struct {
@@ -59,35 +56,15 @@ type TbAddress struct {
 	Lng         float64 `orm:"column(LNG)" json:"lng"`                   // 经度
 	ActivityId  int64   `orm:"column(ACTIVITY_ID)" json:"-"`   // 活动ID
 
-	Activity    *TbActivity  `orm:"rel(fk)"  json:"-"`
-
-
 }
 
-type TbBanner struct {
-	gorm.Model
-	BannerID   int64  `orm:"pK;column(BANNER_ID)" gorm:"primary_key;column(BANNER_ID)" json:"banner_id"`
-	ActivityId int64  `orm:"column(ACTIVITY_ID)" gorm:"column(ACTIVITY_ID)" json:"activity_id"` // 活动ID
-	URL       string `orm:"column(URL)" gorm:"column(URL)" json:"url"`                 // 图片URL
-}
+
 
 
 
 
 func init() {
 
-	// set default database
-	//orm.RegisterDataBase("default", "mysql", "root:123qaz!@#@tcp(39.97.230.148:3306)/qzy_official_service?charset=utf8")
-	orm.RegisterDataBase("default", "mysql", "root:loveys1314@tcp(127.0.0.1:3306)/qzy_official_service?charset=utf8")
-
-	orm.SetMaxIdleConns("default",1000)
-	orm.SetMaxOpenConns("default",2000)
-
-
-
-	// register model
-	orm.RegisterModel(new(TbActivity),new(TbWelfare),new(TbBanner),new(TbAddress))
-
-
+	
 
 }
