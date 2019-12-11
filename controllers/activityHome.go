@@ -59,8 +59,7 @@ func (this *ActivityHomeListController) ActivityList() {
 	var activitys []*models.TbActivity
 
 	dbmain.Select("ACTIVITY_ID,ACTIVITY_NAME,SUB_NAME,IMAGE,ORIGINAL_PRICE,TOTAL_NUM,PRICE_TAG,PRICE,STATUS").Limit(intsize).Offset(start).Find(&activitys)
-	//dbmain.Limit(intsize).Offset(start).Find(&activitys)
-
+	
 	utils.ReturnHTTPSuccess(&this.Controller, &activitys)
 
 	this.ServeJSON()
@@ -81,8 +80,8 @@ func (this *ActivityHomeListController) ActivityInfo() {
 	activityInfo := models.TbActivity{ActivityId: i64}
 
 	dbmain.First(&activityInfo)
-		activityInfo.SignStartTime=info.SignStartTime[:10]
-		activityInfo.SignEndTime=info.SignEndTime[:10]
+		activityInfo.SignStartTime=activityInfo.SignStartTime[:10]
+		activityInfo.SignEndTime=activityInfo.SignEndTime[:10]
 
 	var banners []*models.TbBanner
 
