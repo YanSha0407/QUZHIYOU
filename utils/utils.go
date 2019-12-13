@@ -5,8 +5,6 @@ import (
 	"time"
 
 	"github.com/astaxie/beego/orm"
-
-	uuid "github.com/satori/go.uuid"
 )
 
 func String2Int(val string) int {
@@ -31,14 +29,14 @@ func Float642String(val float64) string {
 	return strconv.FormatFloat(val, 'E', -1, 64)
 }
 
-func GetUUID() string {
-	uuid, err := uuid.NewV4()
-	if err != nil {
-		return ""
-	} else {
-		return uuid.String()
-	}
-}
+//func GetUUID() string {
+//	uuid, err := uuid.NewV4()
+//	if err != nil {
+//		return ""
+//	} else {
+//		return uuid.String()
+//	}
+//}
 
 //the result likes 1423361979
 func GetTimestamp() int64 {

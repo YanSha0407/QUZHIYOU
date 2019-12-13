@@ -1,17 +1,22 @@
 package main
 
 import (
-	_ "QUZHIYOU/models"
-	_ "QUZHIYOU/routers"
-	"github.com/astaxie/beego"
-	"QUZHIYOU/services"
+	"QUZHIYOU/models"
+	"QUZHIYOU/routers"
 )
+
+func init()  {
+	models.Initialized()
+}
 
 func main() {
 
-	beego.InsertFilter("/wechat/*", beego.BeforeExec, services.FilterFunc, true, true)
+	defer models.CloseDb()
 
-	beego.Run()
+	router:=routers.InitRouter()
+
+	router.Run()
+
 }
 
 
