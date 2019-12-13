@@ -18,7 +18,7 @@ var dbmain *gorm.DB
 func init() {
 
 	db, err := gorm.Open("mysql",
-		"root:loveys1314@tcp(127.0.0.1:3306)/qzy_official_service?charset=utf8&parseTime=True&loc=Local")
+		"root:123qaz!@#@tcp(39.97.230.148:3306)/qzy_official_service?charset=utf8&parseTime=True&loc=Local")
 	dbmain = db
 	dbmain.DB().SetMaxIdleConns(10)
 	dbmain.DB().SetMaxOpenConns(300)
@@ -77,45 +77,42 @@ func (this *ActivityHomeListController) ActivityInfo() {
 	activityId := this.GetString("activityId")
 	i64, _ := strconv.ParseInt(activityId, 10, 64)
 
-	activityInfo := models.TbActivity{ActivityId: i64}
+	activityInfo := models.TbActivity{
+		ActivityId: i64,
+	}
 
+	//dbmain.First(&activityInfo).
+	//	Where("ACTIVITY_ID = ? ",i64).
+	//	Model(&activityInfo).
+	//	Related(&activityInfo.Welfares,"ActivityId").
+	//	Related(&activityInfo.AddressFrom,"ActivityId").
+	//	Related(&activityInfo.AddressTo,"ActivityId").
+	//	Find(&activityInfo.Welfares).
+	//	Find(&activityInfo.AddressFrom).
+	//	Find(&activityInfo.AddressTo)
 
+	dbmain.First(&activityInfo).Association("Welfares").Find(&activityInfo.Welfares)
+	//dbmain.First(&activityInfo).Where("ACTIVITY_ID = ? ",i64).Find(&activityInfo.Welfares)
+	dbmain.First(&activityInfo).Association("AddressFrom").Find(&activityInfo.AddressFrom)
+	dbmain.First(&activityInfo).Association("AddressTo").Find(&activityInfo.AddressTo)
 
+	activityInfo.SignStartTime = activityInfo.SignStartTime[:10]
+	activityInfo.SignEndTime = activityInfo.SignEndTime[:10]
 
-	dbmain.First(&activityInfo).
-		Where("ACTIVITY_ID = ? ",i64).
-		Model(&activityInfo).
-		Related(&activityInfo.Welfares,"ActivityId").
-		Related(&activityInfo.AddressFrom,"ActivityId").
-		Related(&activityInfo.AddressTo,"ActivityId").
-		Find(&activityInfo.Welfares).
-		Find(&activityInfo.AddressFrom).
-		Find(&activityInfo.AddressTo)
+	var add []*models.TbAddress
+	var addto []*models.TbAddress
 
-
-		activityInfo.SignStartTime=activityInfo.SignStartTime[:10]
-		activityInfo.SignEndTime=activityInfo.SignEndTime[:10]
-
-
-	    var add []*models.TbAddress
-		var addto []*models.TbAddress
-
-		for _,v:=range activityInfo.AddressFrom{
-			//1出发地 2目的地
-			if v.Type ==1{
-				add = append(add, v)
-			}else if v.Type==2{
-				addto=append(addto,v)
-			}
+	for _, v := range activityInfo.AddressFrom {
+		//1出发地 2目的地
+		if v.Type == 1 {
+			add = append(add, v)
+		} else if v.Type == 2 {
+			addto = append(addto, v)
 		}
+	}
 
-	activityInfo.AddressFrom=add
-	activityInfo.AddressTo=addto
-
-
-
-
-
+	activityInfo.AddressFrom = add
+	activityInfo.AddressTo = addto
 
 	var banners []*models.TbBanner
 
@@ -126,63 +123,3 @@ func (this *ActivityHomeListController) ActivityInfo() {
 	this.ServeJSON()
 
 }
-
-//back
-
-//func (this *ActivityHomeListController) ActivityInfoback() {
-//
-//	o:=orm.NewOrm()
-//
-//	activityId := this.GetString("activityId")
-//
-//	i64,_ := strconv.ParseInt(activityId,10,64)
-//
-//	info:=models.TbActivity{ActivityId:i64}
-//
-//
-//
-//	o.QueryTable("tb_activity").Filter("ActivityId",i64).One(&info)
-//
-//
-//
-//	o.LoadRelated(&info,"Welfares")
-//
-//	o.LoadRelated(&info,"Addfroms")
-//	o.LoadRelated(&info,"Addtos")
-//
-//
-//
-//	info.SignStartTime=info.SignStartTime[:10]
-//	info.SignEndTime=info.SignEndTime[:10]
-//
-//	fmt.Println(info.Addfroms)
-//
-//
-//	var add []*models.TbAddress
-//	var addto []*models.TbAddress
-//
-//	for _,v:=range info.Addfroms{
-//		//1出发地 2目的地
-//		if v.Type ==1{
-//			add = append(add, v)
-//		}else if v.Type==2{
-//			addto=append(addto,v)
-//		}
-//	}
-//
-//	info.Addfroms=add
-//	info.Addtos=addto
-//
-//
-//	//插入banner
-//	var banners []models.TbBanner
-//	o.QueryTable("tb_banner").Filter("ACTIVITYID",i64).All(&banners)
-//
-//
-//
-//	utils.ReturnHTTPSuccess(&this.Controller,ActivityInfoJson{ActivityInfo:info,Banner:banners})
-//
-//	this.ServeJSON()
-//
-//
-//}

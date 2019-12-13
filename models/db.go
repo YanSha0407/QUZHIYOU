@@ -2,7 +2,6 @@ package models
 
 import (
 	_ "github.com/go-sql-driver/mysql"
-	"time"
 )
 
 
@@ -22,20 +21,20 @@ type TbActivity struct {
 	CollectionNum int64     ` json:"collectionNum,omitempty" gorm:"column:COLLECTION_NUM"`   // 收藏数
 	Status        string    ` json:"status,omitempty" gorm:"column:STATUS"`                   // 活动状态：未开始/进行中/已结束
 	Author        string    ` json:"author,omitempty" gorm:"column:AUTHOR"`                   // 创建者
-	DateAdd       time.Time ` json:"dateAdd,omitempty" gorm:"column:DATE_ADD"`               // 活动创建时间
-	DateUpdate    time.Time ` json:"dateUpdate,omitempty" gorm:"column:DATE_UPDATE"`         // 活动更新时间
+	DateAdd       string ` json:"dateAdd,omitempty" gorm:"column:DATE_ADD"`               // 活动创建时间
+	DateUpdate    string ` json:"dateUpdate,omitempty" gorm:"column:DATE_UPDATE"`         // 活动更新时间
 	SignStartTime  string   ` json:"signStartTime,omitempty" gorm:"column:SIGN_START_TIME"` // 报名开始时间
 	SignEndTime   string    ` json:"signEndTime,omitempty" gorm:"column:SIGN_END_TIME"`     // 报名结束时间
-	ActiveTime    time.Time ` json:"active_time,omitempty" gorm:"column:ACTIVE_TIME"`         // 活动时间
+	ActiveTime    string ` json:"active_time,omitempty" gorm:"column:ACTIVE_TIME"`         // 活动时间
 	Views         int64     ` json:"views,omitempty" gorm:"column:VIEWS"`                     // 浏览量
 	HtmlCon       string    ` json:"htmlCon,omitempty" gorm:"column:HTML_CON"`
 
 //	关联字段
-    Welfares      []*TbWelfare  `json:"welfareList" gorm:"foreignkey:ActivityId" `
+    Welfares      []*TbWelfare  `json:"welfareList,omitempty" gorm:"FOREIGNKEY:ActivityId;ASSOCIATION_FOREIGNKEY:ActivityId" `
 
-	AddressFrom   []*TbAddress  `json:"gatherAddList" gorm:"foreignkey:ActivityId"`
+	AddressFrom   []*TbAddress  `json:"gatherAddList,omitempty" gorm:"FOREIGNKEY:ActivityId;ASSOCIATION_FOREIGNKEY:ActivityId"`
 
-	AddressTo     []*TbAddress   `json:"destinationList"  gorm:"foreignkey:ActivityId"`
+	AddressTo     []*TbAddress   `json:"destinationList,omitempty"  gorm:"FOREIGNKEY:ActivityId;ASSOCIATION_FOREIGNKEY:ActivityId"`
 
 }
 
@@ -43,7 +42,7 @@ type TbWelfare struct {
 	WelfareID  int64  `gorm:"primary_key;column:WELFARE_ID" json:"welfareId"`   // 福利ID
 	Tag        string `gorm:"column:TAG" json:"tag"`                 // 福利类型
 	Des       string ` gorm:"column:DES"json:"des"`                 // 福利详细描述
-	ActivityId int64  `gorm:"index;column:ACTIVITY_ID" json:"activityId"` // 活动ID
+	ActivityId int64  `gorm:"INDEX;column:ACTIVITY_ID" json:"-"` // 活动ID
 
 }
 
@@ -63,7 +62,7 @@ type TbAddress struct {
 	Type        int64   `gorm:"column:TYPE" json:"type"`                 // 地址类型：1-集合地/2-目的地
 	Lat        float64  `gorm:"column:LAT" json:"lat"`                   // 纬度
 	Lng         float64 `gorm:"column:LNG" json:"lng"`                   // 经度
-	ActivityId  int64   `gorm:"index;column:ACTIVITY_ID" json:"activityId"`   // 活动ID
+	ActivityId  int64   `gorm:"INDEX;column:ACTIVITY_ID" json:"-"`   // 活动ID
 
 }
 
