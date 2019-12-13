@@ -15,7 +15,7 @@ func main() {
 
 	router:=routers.InitRouter()
 
-	router.Run(":8080")
+	router.RunTLS(":8080","./server.pem","./server.key")
 
 }
 
