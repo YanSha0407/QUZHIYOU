@@ -4,7 +4,7 @@ package models
 import (
 	"fmt"
 	"github.com/jinzhu/gorm"
-"log"
+     "log"
 )
 
 var DB *gorm.DB
@@ -25,6 +25,10 @@ func Initialized() {
 		log.Fatalf("database connection error: %v", err);
 		return
 	}
+
+
+
+
 	DB.SingularTable(true)
 	fmt.Println("数据库连接成功")
 	DB.DB().SetMaxIdleConns(10)

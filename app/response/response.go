@@ -5,6 +5,19 @@ import (
 	"QUZHIYOU/resources/lang"
 )
 
+
+
+
+
+func (g *Gin) Success(msg string, data interface{}) {
+	g.Res(200, "success", msg, data)
+}
+
+func (g *Gin) Error(msg string, data interface{}) {
+	g.Res(200, "error", msg, data)
+}
+
+
 type Gin struct {
 	C *gin.Context
 }
@@ -27,12 +40,3 @@ func (g *Gin) Res(httpCode int, status, msg string, data interface{}) {
 	})
 	return
 }
-
-func (g *Gin) Success(msg string, data interface{}) {
-	g.Res(200, "success", msg, data)
-}
-
-func (g *Gin) Error(msg string, data interface{}) {
-	g.Res(200, "error", msg, data)
-}
-

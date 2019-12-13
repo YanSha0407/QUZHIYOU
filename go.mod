@@ -3,6 +3,7 @@ module QUZHIYOU
 go 1.13
 
 require (
+	github.com/8treenet/gcache v1.1.3
 	github.com/astaxie/beego v1.12.0
 	github.com/gin-gonic/gin v1.5.0
 	github.com/go-sql-driver/mysql v1.4.1

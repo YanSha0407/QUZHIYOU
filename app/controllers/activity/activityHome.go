@@ -35,7 +35,11 @@ func  ActivityList(this *gin.Context) {
 
 	var activitys []*models.TbActivity
 
-	models.DB.Select("ACTIVITY_ID,ACTIVITY_NAME,SUB_NAME,IMAGE,ORIGINAL_PRICE,TOTAL_NUM,PRICE_TAG,PRICE,STATUS,TAGS").Limit(intsize).Offset(start).Find(&activitys)
+	models.DB.
+		Select("ACTIVITY_ID,ACTIVITY_NAME,SUB_NAME,IMAGE,ORIGINAL_PRICE,TOTAL_NUM,PRICE_TAG,PRICE,STATUS,TAGS").
+		Limit(intsize).
+		Offset(start).
+		Find(&activitys)
 
 
 	// 响应

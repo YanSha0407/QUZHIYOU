@@ -53,8 +53,6 @@ type TbBanner struct {
 }
 
 
-
-
 type TbAddress struct {
 	AddressId   int64   `gorm:"primary_key;column:ADDRESS_ID" json:"addressId"`     // 地址ID
 	AddressName string  `gorm:"column:ADDRESS_NAME" json:"addressName"` // 地址
