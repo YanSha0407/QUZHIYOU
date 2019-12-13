@@ -1,7 +1,7 @@
 package routers
 
 import (
-	"QUZHIYOU/controllers/activity"
+	"QUZHIYOU/app/controllers/activity"
 	"github.com/gin-gonic/gin"
 )
 
