@@ -30,11 +30,11 @@ type TbActivity struct {
 	HtmlCon       string    ` json:"htmlCon,omitempty" gorm:"column:HTML_CON"`
 
 //	关联字段
-    Welfares      []*TbWelfare  `json:"welfareList,omitempty" gorm:"FOREIGNKEY:ActivityId;ASSOCIATION_FOREIGNKEY:ActivityId" `
+    Welfares      []*TbWelfare  `json:"welfareList,omitempty" gorm:"FOREIGNKEY:ActivityId" `
 
-	AddressFrom   []*TbAddress  `json:"gatherAddList,omitempty" gorm:"FOREIGNKEY:ActivityId;ASSOCIATION_FOREIGNKEY:ActivityId"`
+	AddressFrom   []*TbAddress  `json:"gatherAddList,omitempty" gorm:"FOREIGNKEY:ActivityId"`
 
-	AddressTo     []*TbAddress   `json:"destinationList,omitempty"  gorm:"FOREIGNKEY:ActivityId;ASSOCIATION_FOREIGNKEY:ActivityId"`
+	AddressTo     []*TbAddress   `json:"destinationList,omitempty"  gorm:"FOREIGNKEY:ActivityId"`
 
 }
 
