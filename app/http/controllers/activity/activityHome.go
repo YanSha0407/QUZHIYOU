@@ -34,6 +34,8 @@ func ActivityList(this *gin.Context) {
 	var activitys []*models.TbActivity
 
 	models.DB.
+		Debug().
+		Preload("Welfares").
 		Select("ACTIVITY_ID,ACTIVITY_NAME,SUB_NAME,IMAGE,ORIGINAL_PRICE,TOTAL_NUM,PRICE_TAG,PRICE,STATUS,TAGS").
 		Limit(intsize).
 		Offset(start).
@@ -67,11 +69,6 @@ func ActivityInfo(this *gin.Context) {
 		Preload("AddressFrom").
 		Preload("AddressTo").
 		First(&activityInfo)
-
-	//models.DB.First(&activityInfo).Association("Welfares").Find(&activityInfo.Welfares)
-	//models.DB.First(&activityInfo).Association("AddressFrom").Find(&activityInfo.AddressFrom)
-	//models.DB.First(&activityInfo).Association("AddressTo").Find(&activityInfo.AddressTo)
-
 	activityInfo.SignStartTime = activityInfo.SignStartTime[:10]
 	activityInfo.SignEndTime = activityInfo.SignEndTime[:10]
 

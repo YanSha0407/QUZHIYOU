@@ -30,11 +30,11 @@ type TbActivity struct {
 	HtmlCon       string    ` json:"htmlCon,omitempty" gorm:"column:HTML_CON"`
 
 //	关联字段
-    Welfares      []*TbWelfare  `json:"welfareList,omitempty" gorm:"FOREIGNKEY:ActivityId" `
+    Welfares      []*TbWelfare  `json:"welfareList,omitempty" gorm:"ForeignKey:ActivityId" `
 
-	AddressFrom   []*TbAddress  `json:"gatherAddList,omitempty" gorm:"FOREIGNKEY:ActivityId"`
+	AddressFrom   []*TbAddress  `json:"gatherAddList,omitempty" gorm:"ForeignKey:ActivityId"`
 
-	AddressTo     []*TbAddress   `json:"destinationList,omitempty"  gorm:"FOREIGNKEY:ActivityId"`
+	AddressTo     []*TbAddress   `json:"destinationList,omitempty"  gorm:"ForeignKey:ActivityId"`
 
 }
 
@@ -42,7 +42,7 @@ type TbWelfare struct {
 	WelfareID  int64  `gorm:"primary_key;column:WELFARE_ID" json:"welfareId"`   // 福利ID
 	Tag        string `gorm:"column:TAG" json:"tag"`                 // 福利类型
 	Des       string ` gorm:"column:DES"json:"des"`                 // 福利详细描述
-	ActivityId int64  `gorm:"INDEX;column:ACTIVITY_ID" json:"-"` // 活动ID
+	ActivityId int64  `gorm:"index;column:ACTIVITY_ID" json:"-"` // 活动ID
 
 }
 
