@@ -32,6 +32,7 @@ func ActivityList(this *gin.Context) {
 
 	var activitys []*models.TbActivity
 
+	//查询字段
 	showRows:=[]string{"ACTIVITY_ID","ACTIVITY_NAME","SUB_NAME","IMAGE","ORIGINAL_PRICE","TOTAL_NUM","PRICE_TAG","PRICE","STATUS","TAGS"}
 
 	    models.DB.
@@ -55,10 +56,8 @@ type ActivityInfoJson struct {
 //获取活动详情信息
 func ActivityInfo(this *gin.Context) {
 
+	//获取id转为int64
 	activityId := utils.String2Int64(this.Query("activityId"))
-
-
-
 
 	activityInfo := models.TbActivity{
 		ActivityId: activityId,
