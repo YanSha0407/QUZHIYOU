@@ -6,7 +6,6 @@ import (
 	"QUZHIYOU/utils"
 	"github.com/gin-gonic/gin"
 	"net/http"
-	"strconv"
 )
 
 //获取首页列表
@@ -35,7 +34,7 @@ func ActivityList(this *gin.Context) {
 
 	showRows:=[]string{"ACTIVITY_ID","ACTIVITY_NAME","SUB_NAME","IMAGE","ORIGINAL_PRICE","TOTAL_NUM","PRICE_TAG","PRICE","STATUS","TAGS"}
 
-	models.DB.
+	    models.DB.
 		Select(showRows).
 		Limit(intsize).
 		Offset(start).
@@ -56,11 +55,13 @@ type ActivityInfoJson struct {
 //获取活动详情信息
 func ActivityInfo(this *gin.Context) {
 
-	activityId := this.Query("activityId")
-	i64, _ := strconv.ParseInt(activityId, 10, 64)
+	activityId := utils.String2Int64(this.Query("activityId"))
+
+
+
 
 	activityInfo := models.TbActivity{
-		ActivityId: i64,
+		ActivityId: activityId,
 	}
 
 	models.DB.
@@ -89,7 +90,7 @@ func ActivityInfo(this *gin.Context) {
 
 	var banners []*models.TbBanner
 
-	models.DB.Find(&banners,"ACTIVITY_ID=?",i64)
+	models.DB.Find(&banners,"ACTIVITY_ID=?",activityId)
 
 	this.JSON(http.StatusOK, gin.H{
 		"code":    200,

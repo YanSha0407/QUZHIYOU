@@ -17,6 +17,12 @@ func String2Int(val string) int {
 	}
 }
 
+func String2Int64(val string) int64 {
+	i,_:=strconv.ParseInt(val, 10, 64)
+
+	return i
+}
+
 func Int2String(val int) string {
 	return strconv.Itoa(val)
 }
