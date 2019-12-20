@@ -14,8 +14,9 @@ func main() {
 	defer models.CloseDb()
 
 	router:=routers.InitRouter()
+	router.Run()
 
-	router.RunTLS(":8080","./server.pem","./server.key")
+	//router.RunTLS(":8080","./server.pem","./server.key")
 
 }
 
