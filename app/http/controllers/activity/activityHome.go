@@ -33,9 +33,10 @@ func ActivityList(this *gin.Context) {
 
 	var activitys []*models.TbActivity
 
+	showRows:=[]string{"ACTIVITY_ID","ACTIVITY_NAME","SUB_NAME","IMAGE","ORIGINAL_PRICE","TOTAL_NUM","PRICE_TAG","PRICE","STATUS","TAGS"}
+
 	models.DB.
-		Debug().
-		Select("ACTIVITY_ID,ACTIVITY_NAME,SUB_NAME,IMAGE,ORIGINAL_PRICE,TOTAL_NUM,PRICE_TAG,PRICE,STATUS,TAGS").
+		Select(showRows).
 		Limit(intsize).
 		Offset(start).
 		Find(&activitys)
