@@ -35,7 +35,6 @@ func ActivityList(this *gin.Context) {
 
 	models.DB.
 		Debug().
-		Preload("Welfares").
 		Select("ACTIVITY_ID,ACTIVITY_NAME,SUB_NAME,IMAGE,ORIGINAL_PRICE,TOTAL_NUM,PRICE_TAG,PRICE,STATUS,TAGS").
 		Limit(intsize).
 		Offset(start).
@@ -89,7 +88,7 @@ func ActivityInfo(this *gin.Context) {
 
 	var banners []*models.TbBanner
 
-	models.DB.Where("ACTIVITY_ID=?", i64).Find(&banners)
+	models.DB.Find(&banners,"ACTIVITY_ID=?",i64)
 
 	this.JSON(http.StatusOK, gin.H{
 		"code":    200,
