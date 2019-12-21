@@ -2,6 +2,8 @@ package models
 
 import (
 	_ "github.com/go-sql-driver/mysql"
+	"github.com/jinzhu/gorm"
+	"time"
 )
 
 
@@ -64,6 +66,24 @@ type TbAddress struct {
 }
 
 
+
+
+
+//社区动态
+
+type Diary struct {
+	gorm.Model
+	Name string
+	Content string
+	Like int
+	IsLike int
+	View int
+	Auth string
+	CommentNum int
+	Address string
+	Community string
+	Time time.Time
+}
 
 
 

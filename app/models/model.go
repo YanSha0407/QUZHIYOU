@@ -37,6 +37,8 @@ func Initialized() {
 
 	DB.SingularTable(true)
 
+	DB.AutoMigrate(&Diary{})
+
 	DB.DB().SetMaxIdleConns(10)
 	DB.DB().SetMaxOpenConns(5000)
 	// debug 模式开启sql日志
