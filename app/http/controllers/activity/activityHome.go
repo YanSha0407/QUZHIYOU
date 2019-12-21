@@ -4,6 +4,8 @@ import (
 	"QUZHIYOU/app/models"
 	"QUZHIYOU/app/response"
 	"QUZHIYOU/utils"
+	"encoding/json"
+	"fmt"
 	"github.com/gin-gonic/gin"
 	"net/http"
 )
@@ -11,11 +13,15 @@ import (
 //获取首页列表
 
 func ActivityList(this *gin.Context) {
-
+	// 响应
+	resGin := response.Gin{C: this}
 	page := this.Query("page")
 	size := this.Query("size")
 
-	var intpage, intsize int
+	var (
+		intpage, intsize int
+
+	)
 	if page == "" {
 		intpage = 1
 	} else {
@@ -34,6 +40,17 @@ func ActivityList(this *gin.Context) {
 
 	//查询字段
 
+	actis,err:=models.Client.Get("activitis").Result()
+
+	if err == nil{
+
+		json.Unmarshal([]byte(actis),&activitys)
+
+		resGin.Success("ok", &activitys)
+		return
+	}
+
+
 
 
 	showRows:=[]string{"ACTIVITY_ID","ACTIVITY_NAME","SUB_NAME","IMAGE","ORIGINAL_PRICE","TOTAL_NUM","PRICE_TAG","PRICE","STATUS","TAGS"}
@@ -44,8 +61,14 @@ func ActivityList(this *gin.Context) {
 		Offset(start).
 		Find(&activitys)
 
-	// 响应
-	resGin := response.Gin{C: this}
+	fmt.Println(activitys,"---------")
+
+
+	data,_:=json.Marshal(&activitys)
+
+	models.Client.Set("activitis",data,0)
+
+
 
 	resGin.Success("ok", &activitys)
 

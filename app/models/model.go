@@ -1,14 +1,14 @@
 package models
 
-
 import (
 	"fmt"
+	"github.com/go-redis/redis"
 	"github.com/jinzhu/gorm"
-     "log"
+	"log"
 )
 
 var DB *gorm.DB
-
+var Client *redis.Client
 
 
 // 初始化数据库连接等
@@ -27,15 +27,20 @@ func Initialized() {
 		return
 	}
 
-
+	Client = redis.NewClient(&redis.Options{
+		Addr:     "127.0.0.1:6379",
+		Password: "", // no password set
+		DB:       0,  // use default DB
+	})
+	fmt.Println(Client,"------")
 
 
 	DB.SingularTable(true)
-	fmt.Println("数据库连接成功")
+
 	DB.DB().SetMaxIdleConns(10)
-	DB.DB().SetMaxOpenConns(100)
+	DB.DB().SetMaxOpenConns(5000)
 	// debug 模式开启sql日志
-	DB.LogMode(true)
+	DB.LogMode(false)
 }
 
 // 关闭数据库连接
