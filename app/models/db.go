@@ -5,7 +5,7 @@ import (
 )
 
 
-
+//活动
 type TbActivity struct {
 	ActivityId    int64     ` gorm:"primary_key;column:ACTIVITY_ID" json:"activityId"`     // 活动ID
 	ActivityName  string    ` json:"activityName,omitempty" gorm:"column:ACTIVITY_NAME"` // 活动名称
@@ -37,7 +37,7 @@ type TbActivity struct {
 	AddressTo     []*TbAddress   `json:"destinationList,omitempty"  gorm:"ForeignKey:ActivityId"`
 
 }
-
+//活动福利
 type TbWelfare struct {
 	WelfareID  int64  `gorm:"primary_key;column:WELFARE_ID" json:"welfareId"`   // 福利ID
 	Tag        string `gorm:"column:TAG" json:"tag"`                 // 福利类型
@@ -45,14 +45,14 @@ type TbWelfare struct {
 	ActivityId int64  `gorm:"index;column:ACTIVITY_ID" json:"-"` // 活动ID
 
 }
-
+//活动图片
 type TbBanner struct {
 	BannerID   int64  ` gorm:"primary_key;column:BANNER_ID" json:"banner_id"`
 	ActivityId int64  ` gorm:"column:ACTIVITY_ID" json:"_"` // 活动ID
 	URL       string `  gorm:"column:URL" json:"url"`                 // 图片URL
 }
 
-
+//活动地址
 type TbAddress struct {
 	AddressId   int64   `gorm:"primary_key;column:ADDRESS_ID" json:"addressId"`     // 地址ID
 	AddressName string  `gorm:"column:ADDRESS_NAME" json:"addressName"` // 地址
@@ -61,8 +61,10 @@ type TbAddress struct {
 	Lat        float64  `gorm:"column:LAT" json:"lat"`                   // 纬度
 	Lng         float64 `gorm:"column:LNG" json:"lng"`                   // 经度
 	ActivityId  int64   `gorm:"INDEX;column:ACTIVITY_ID" json:"-"`   // 活动ID
-
 }
+
+
+
 
 
 
