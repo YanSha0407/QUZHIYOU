@@ -12,9 +12,34 @@ type DiaryHomeService struct {
 
 func (this *DiaryHomeService) GetAllDiary() []*serializer.Diary {
 
+	page := this.Page
+	size := this.Size
+
+	var (
+		intpage, intsize int
+	)
+
+	if page == 0 {
+		intpage = 1
+	} else {
+		intpage = page
+	}
+
+	if size == 0 {
+		intsize = 10
+	} else {
+		intsize = size
+	}
+
+	start := (intpage - 1) * intsize
+
+
 	var diary []*models.Diary
 
-	models.DB.Find(&diary)
+	 models.DB.
+		Limit(intsize).
+		Offset(start).
+		Find(&diary)
 
 	return serializer.BuildDiarys(diary)
 

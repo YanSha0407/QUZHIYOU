@@ -12,7 +12,7 @@ func HomeList(c *gin.Context)  {
 
 	var diary services.DiaryHomeService
 
-	if err:=c.ShouldBind(&diary);err!=nil{
+	if err:=c.ShouldBindJSON(&diary);err!=nil{
 		resGin.Error("获取失败","获取动态失败")
 	}else {
 		diarys:=diary.GetAllDiary()
