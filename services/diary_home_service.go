@@ -33,14 +33,9 @@ func (this *DiaryHomeService) GetAllDiary() []*serializer.Diary {
 
 	start := (intpage - 1) * intsize
 
-
 	var diary []*models.Diary
 
-	 models.DB.
-		Limit(intsize).
-		Offset(start).
-		Find(&diary)
-
+	models.DB.Limit(intsize).Offset(start).Find(&diary)
 	return serializer.BuildDiarys(diary)
 
 }
