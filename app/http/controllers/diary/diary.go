@@ -15,7 +15,8 @@ func HomeList(c *gin.Context)  {
 
 	if err:=c.ShouldBindJSON(&diary);err!=nil{
 		fmt.Println(err)
-		resGin.Error("获取失败","获取动态失败")
+		x := fmt.Sprintf("%s", err)
+		resGin.Error(x,nil)
 	}else {
 		diarys:=diary.GetAllDiary()
 		resGin.Success("ok",&diarys)

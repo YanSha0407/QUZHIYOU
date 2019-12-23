@@ -6,8 +6,8 @@ import (
 )
 
 type DiaryHomeService struct {
-	Page int `json:"page"binding:"required,min=1"`
-	Size int `json:"size"binding:"required,min=1"`
+	Page int `json:"page"binding:"required"`
+	Size int `json:"size"binding:"required"`
 }
 
 func (this *DiaryHomeService) GetAllDiary() []*serializer.Diary {
@@ -15,27 +15,12 @@ func (this *DiaryHomeService) GetAllDiary() []*serializer.Diary {
 	page := this.Page
 	size := this.Size
 
-	var (
-		intpage, intsize int
-	)
 
-	if page == 0 {
-		intpage = 1
-	} else {
-		intpage = page
-	}
-
-	if size == 0 {
-		intsize = 10
-	} else {
-		intsize = size
-	}
-
-	start := (intpage - 1) * intsize
+	start := (page - 1) * size
 
 	var diary []*models.Diary
 
-	models.DB.Limit(intsize).Offset(start).Find(&diary)
+	models.DB.Limit(size).Offset(start).Find(&diary)
 	return serializer.BuildDiarys(diary)
 
 }
