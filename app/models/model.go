@@ -16,8 +16,8 @@ func Initialized() {
 	// 申明变量
 	var (
 		err error
-		connectSql = "root:loveys1314@tcp(127.0.0.1:3306)/qzy_official_service?charset=utf8&parseTime=True&loc=Local"
-		//connectSql = "root:123qaz!@#@tcp(39.97.230.148:3306)/qzy_official_service?charset=utf8&parseTime=True&loc=Local"
+		//connectSql = "root:loveys1314@tcp(127.0.0.1:3306)/qzy_official_service?charset=utf8&parseTime=True&loc=Local"
+		connectSql = "root:123qaz!@#@tcp(39.97.230.148:3306)/qzy_official_service?charset=utf8&parseTime=True&loc=Local"
 		databaseCfg = "mysql"
 	)
 	// 连接数据库
