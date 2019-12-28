@@ -45,22 +45,12 @@ func ActivityList(this *gin.Context) {
 		Order("ACTIVITY_ID desc").
 		Find(&activitys)
 
-	
+
 	// 响应
 	resGin := response.Gin{C: this}
 	resGin.Success("ok", &activitys)
 
 }
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -88,8 +78,11 @@ func ActivityInfo(this *gin.Context) {
 		Preload("AddressFrom").
 		Preload("AddressTo").
 		First(&activityInfo)
-	activityInfo.SignStartTime = activityInfo.SignStartTime[:10]
-	activityInfo.SignEndTime = activityInfo.SignEndTime[:10]
+
+
+	activityInfo.FormatTime(&activityInfo)
+
+
 
 	var add []*models.TbAddress
 	var addto []*models.TbAddress

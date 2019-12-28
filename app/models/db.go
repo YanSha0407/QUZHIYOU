@@ -27,6 +27,10 @@ type TbActivity struct {
 	DateUpdate    string ` json:"dateUpdate,omitempty" gorm:"column:DATE_UPDATE"`         // 活动更新时间
 	SignStartTime  string   ` json:"signStartTime,omitempty" gorm:"column:SIGN_START_TIME"` // 报名开始时间
 	SignEndTime   string    ` json:"signEndTime,omitempty" gorm:"column:SIGN_END_TIME"`     // 报名结束时间
+
+	ActiveStartTime  string   ` json:"activeStartTime,omitempty" gorm:"column:ACTIVE_START_TIME"` // 活动开始时间
+	ActiveEndTime   string    ` json:"activeEndTime,omitempty" gorm:"column:ACTIVE_END_TIME"`     // 活动结束时间
+
 	ActiveTime    string ` json:"active_time,omitempty" gorm:"column:ACTIVE_TIME"`         // 活动时间
 	Views         int64     ` json:"views,omitempty" gorm:"column:VIEWS"`                     // 浏览量
 	HtmlCon       string    ` json:"htmlCon,omitempty" gorm:"column:HTML_CON"`
@@ -39,6 +43,29 @@ type TbActivity struct {
 	AddressTo     []*TbAddress   `json:"destinationList,omitempty"  gorm:"ForeignKey:ActivityId"`
 
 }
+
+
+
+//活动日期格式化
+
+func (TbActivity *TbActivity)FormatTime(active *TbActivity) (string,string,string,string)  {
+
+	active.SignStartTime=active.SignStartTime[:10]
+	active.SignEndTime=active.SignEndTime[:10]
+
+	active.ActiveStartTime=active.ActiveStartTime[:10]
+	active.ActiveEndTime=active.ActiveEndTime[:10]
+
+	return active.SignStartTime,active.SignEndTime,active.ActiveStartTime,active.ActiveEndTime
+}
+
+
+
+
+
+
+
+
 //活动福利
 type TbWelfare struct {
 	WelfareID  int64  `gorm:"primary_key;column:WELFARE_ID" json:"welfareId"`   // 福利ID
