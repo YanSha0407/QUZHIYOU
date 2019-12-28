@@ -42,7 +42,7 @@ func Initialized() {
 	DB.DB().SetMaxIdleConns(10)
 	DB.DB().SetMaxOpenConns(5000)
 	// debug 模式开启sql日志
-	DB.LogMode(false)
+	DB.LogMode(true)
 }
 
 // 关闭数据库连接
