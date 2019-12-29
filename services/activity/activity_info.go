@@ -35,7 +35,7 @@ func (activityInfo *ActivityInfo) GetActivityInfo(ActivityId string) serializer.
 		First(&actiInfo).Error
 	if err != nil {
 		return serializer.Response{
-			Status: 404,
+			Code: 404,
 			Msg:    "活动不存在",
 			Error:  err.Error(),
 		}

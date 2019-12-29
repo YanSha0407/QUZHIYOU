@@ -31,7 +31,7 @@ func (service *ListVideoService) List() serializer.Response {
 
 	if err := models.DB.Model(models.TbActivity{}).Count(&total).Error; err != nil {
 		return serializer.Response{
-			Status: 50000,
+			Code: 50000,
 			Msg:    "数据库连接错误",
 			Error:  err.Error(),
 		}
@@ -40,7 +40,7 @@ func (service *ListVideoService) List() serializer.Response {
 	showRows:=[]string{"ACTIVITY_ID","ACTIVITY_NAME","SUB_NAME","IMAGE","ORIGINAL_PRICE","TOTAL_NUM","PRICE_TAG","PRICE","STATUS","TAGS"}
 	if err := models.DB.Limit(service.Size).Offset(start).Select(showRows).Find(&activitys).Error; err != nil {
 		return serializer.Response{
-			Status: 50000,
+			Code: 50000,
 			Msg:    "数据库连接错误",
 			Error:  err.Error(),
 		}

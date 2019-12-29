@@ -2,7 +2,6 @@ package controllers
 
 import (
 	"QUZHIYOU/services/activity"
-	"fmt"
 	"github.com/gin-gonic/gin"
 )
 
@@ -27,9 +26,6 @@ func ActivityInfo(this *gin.Context) {
 	service:=activity.ActivityInfo{}
 
 	if err := this.ShouldBind(&service); err == nil {
-
-		fmt.Println(service,"000000000")
-
 		res := service.GetActivityInfo(service.ActivityId)
 		this.JSON(200, res)
 	} else {
