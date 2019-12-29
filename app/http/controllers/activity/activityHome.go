@@ -1,8 +1,9 @@
 package activity
 
 import (
-	"QUZHIYOU/app/response"
+	"QUZHIYOU/app/http/controllers"
 	"QUZHIYOU/models"
+	"QUZHIYOU/services/activity"
 	"QUZHIYOU/utils"
 	"github.com/gin-gonic/gin"
 	"net/http"
@@ -11,46 +12,17 @@ import (
 //获取首页列表
 
 func ActivityList(this *gin.Context) {
-
-	page := this.Query("page")
-	size := this.Query("size")
-
-	var (
-		intpage, intsize int
-
-	)
-	if page == "" {
-		intpage = 1
+	service := activity.ListVideoService{}
+	if err := this.ShouldBind(&service); err == nil {
+		res := service.List()
+		this.JSON(200, res)
 	} else {
-		intpage = utils.String2Int(page)
+		this.JSON(200, controllers.ErrorResponse(err))
 	}
-
-	if size == "" {
-		intsize = 10
-	} else {
-		intsize = utils.String2Int(size)
-	}
-
-	start := (intpage - 1) * intsize
-
-	var activitys []*models.TbActivity
-
-
-	showRows:=[]string{"ACTIVITY_ID","ACTIVITY_NAME","SUB_NAME","IMAGE","ORIGINAL_PRICE","TOTAL_NUM","PRICE_TAG","PRICE","STATUS","TAGS"}
-
-	    models.DB.
-		Select(showRows).
-		Limit(intsize).
-		Offset(start).
-		Order("ACTIVITY_ID desc").
-		Find(&activitys)
-
-
-	// 响应
-	resGin := response.Gin{C: this}
-	resGin.Success("ok", &activitys)
 
 }
+
+
 
 
 //活动详情data
@@ -107,3 +79,6 @@ func ActivityInfo(this *gin.Context) {
 	})
 
 }
+
+
+

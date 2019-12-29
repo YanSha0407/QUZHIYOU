@@ -12,4 +12,5 @@ require (
 	github.com/medivhzhan/weapp/v2 v2.0.1
 	github.com/satori/go.uuid v1.2.0
 	github.com/shiena/ansicolor v0.0.0-20151119151921-a422bbe96644 // indirect
+	gopkg.in/go-playground/validator.v9 v9.29.1
 )

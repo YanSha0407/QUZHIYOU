@@ -71,7 +71,7 @@ func BuildVideo(item models.TbActivity) TbActivity {
 }
 
 // BuildVideos 序列化视频列表
-func BuildVideos(items []models.TbActivity) (activitys []TbActivity) {
+func BuildActivitys(items []models.TbActivity) (activitys []TbActivity) {
 	for _, item := range items {
 		act := BuildVideo(item)
 		activitys = append(activitys, act)
