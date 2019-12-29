@@ -39,38 +39,51 @@ type TbActivity struct {
 
 
 
-//出发活动地址格式化
-func (TbActivity *TbActivity)FormatAddressFrom() []*TbAddress  {
-	var add []*TbAddress
+//活动地址格式化
+func (TbActivity *TbActivity)FormatAddress(addressType string) []*TbAddress  {
+	var addFrom []*TbAddress
+	var addTo []*TbAddress
+
 	for _, v := range TbActivity.AddressFrom {
 		//1出发地 2目的地
-		if v.Type == 1 {
-			add = append(add, v)
+		if v.Type == 1 && addressType=="1"{
+			addFrom = append(addFrom, v)
+			TbActivity.AddressFrom = addFrom
+			return TbActivity.AddressFrom
+		}else if v.Type == 2 && addressType=="2" {
+			addTo = append(addTo, v)
+			TbActivity.AddressTo = addTo
+			return TbActivity.AddressTo
 		}
 	}
-	TbActivity.AddressFrom = add
 
-	return TbActivity.AddressFrom
+	return nil
 
 }
 
 
-//目的地活动地址格式化
-func (TbActivity *TbActivity)FormatAddressTo() []*TbAddress  {
-	var addto []*TbAddress
-	for _, v := range TbActivity.AddressTo {
-		//1出发地 2目的地
-	 if v.Type == 2 {
-			addto = append(addto, v)
-		}
-	}
-	TbActivity.AddressTo = addto
+//活动日期格式化
+func (TbActivity *TbActivity)FormatTime(time string, typeTime string) string  {
 
-	return TbActivity.AddressTo
+
+	if typeTime=="SignStartTime"{
+		TbActivity.SignStartTime=time[:10]
+		return TbActivity.SignStartTime
+   }else if typeTime=="SignEndTime"{
+		TbActivity.SignEndTime=time[:10]
+		return TbActivity.SignEndTime
+	}else if typeTime=="ActiveStartTime"{
+		TbActivity.ActiveStartTime=time[:10]
+		return TbActivity.ActiveStartTime
+	}else if typeTime=="ActiveEndTime"{
+		TbActivity.ActiveEndTime=time[:10]
+		return TbActivity.ActiveEndTime
+	}else {
+		return ""
+	}
 
 
 }
-
 
 
 //解耦格式化目的地
@@ -96,11 +109,8 @@ func (TbActivity *TbActivity)FormatAddress1(active *TbActivity) ([]*TbAddress,[]
 
 }
 
-
-
-
-//活动日期格式化
-func (TbActivity *TbActivity)FormatTime(active *TbActivity) (string,string,string,string)  {
+//解耦活动日期格式化
+func (TbActivity *TbActivity)FormatTime1(active *TbActivity) (string,string,string,string)  {
 
 	active.SignStartTime=active.SignStartTime[:10]
 	active.SignEndTime=active.SignEndTime[:10]

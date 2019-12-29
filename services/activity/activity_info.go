@@ -44,10 +44,6 @@ func (activityInfo *ActivityInfo) GetActivityInfo(ActivityId string) serializer.
 		}
 	}
 
-	actiInfo.FormatTime(&actiInfo)
-
-
-
 
 	return serializer.ActivityInfoResponse(actiInfo,&banners)
 

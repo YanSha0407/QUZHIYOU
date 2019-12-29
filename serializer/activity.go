@@ -60,15 +60,15 @@ func BuildActivity(item models.TbActivity) TbActivity {
 		CollectionNum:      item.CollectionNum,
 		Status:        item.Status,
 		Author:     item.Author,
-		SignStartTime:      item.SignStartTime,
-		SignEndTime:       item.SignEndTime,
-		ActiveStartTime:    item.ActiveStartTime,
-		ActiveEndTime:      item.ActiveEndTime,
+		SignStartTime:      item.FormatTime(item.SignStartTime,"SignStartTime"),
+		SignEndTime:       item.FormatTime(item.SignEndTime,"SignEndTime"),
+		ActiveStartTime:    item.FormatTime(item.ActiveStartTime,"ActiveStartTime"),
+		ActiveEndTime:      item.FormatTime(item.ActiveEndTime,"ActiveEndTime"),
 		Views:        item.Views,
 		HtmlCon:     item.HtmlCon,
 		Welfares:      item.Welfares,
-		AddressFrom:       item.FormatAddressFrom(),
-		AddressTo:    item.FormatAddressTo(),
+		AddressFrom:       item.FormatAddress("1"),
+		AddressTo:    item.FormatAddress("2"),
 	}
 }
 
