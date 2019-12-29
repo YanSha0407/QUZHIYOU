@@ -5,6 +5,7 @@ import (
 	"github.com/go-redis/redis"
 	"github.com/jinzhu/gorm"
 	"log"
+	_ "github.com/go-sql-driver/mysql"
 )
 
 var DB *gorm.DB
