@@ -84,12 +84,12 @@ func BuildActivitys(items []models.TbActivity) (activitys []TbActivity) {
 
 //活动详情
 type ActivityInfoJson struct {
-	ActivityInfo models.TbActivity  `json:"activityInfo"`
+	ActivityInfo *models.TbActivity  `json:"activityInfo"`
 	Banner       []*models.TbBanner `json:"banner"`
 }
 
 // 活动详情序列器
-func ActivityInfoResponse(ActivityInfo models.TbActivity, Banner []*models.TbBanner,) Response {
+func ActivityInfoResponse(ActivityInfo *models.TbActivity, Banner []*models.TbBanner,) Response {
 	return Response{
 		Data: ActivityInfoJson{
 			ActivityInfo: ActivityInfo,

@@ -60,6 +60,6 @@ func (activityInfo *ActivityInfo) GetActivityInfo(ActivityId string) serializer.
 	actiInfo.AddressFrom = add
 	actiInfo.AddressTo = addto
 
-	return serializer.ActivityInfoResponse(actiInfo,banners)
+	return serializer.ActivityInfoResponse(&actiInfo,banners)
 
 }
