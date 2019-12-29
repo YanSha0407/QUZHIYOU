@@ -14,6 +14,8 @@ type ActivityInfo struct {
 
 }
 
+
+
 func (activityInfo *ActivityInfo) GetActivityInfo(ActivityId string) serializer.Response {
 
 
@@ -44,7 +46,6 @@ func (activityInfo *ActivityInfo) GetActivityInfo(ActivityId string) serializer.
 
 	actiInfo.FormatTime(&actiInfo)
 
-	actiInfo.FormatAddress(&actiInfo)
 
 
 
