@@ -2,7 +2,6 @@ package response
 
 import (
 	"github.com/gin-gonic/gin"
-	"QUZHIYOU/resources/lang"
 )
 
 
@@ -35,7 +34,7 @@ func (g *Gin) Res(httpCode int, status, msg string, data interface{}) {
 	g.C.JSON(httpCode, Response{
 		Code:httpCode,
 		Status: status,
-		Msg:    lang.GetMsg(msg),
+		Msg:    msg,
 		Data:   data,
 	})
 	return
