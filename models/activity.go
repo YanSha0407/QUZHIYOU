@@ -39,28 +39,39 @@ type TbActivity struct {
 
 
 
-//活动地址格式化
-func (TbActivity *TbActivity)FormatAddress(addressType string) []*TbAddress  {
+//活动出发地址格式化
+func (TbActivity *TbActivity)FormatAddressFrom() []*TbAddress  {
 	var addFrom []*TbAddress
-	var addTo []*TbAddress
 
 	for _, v := range TbActivity.AddressFrom {
-		//1出发地 2目的地
-		if v.Type == 1 && addressType=="1"{
+
+		if v.Type == 1 {
 			addFrom = append(addFrom, v)
 			TbActivity.AddressFrom = addFrom
-			return TbActivity.AddressFrom
-		}else if v.Type == 2 && addressType=="2" {
-			addTo = append(addTo, v)
-			TbActivity.AddressTo = addTo
-			return TbActivity.AddressTo
 		}
+
 	}
 
-	return nil
+	return TbActivity.AddressFrom
 
 }
 
+//活动目的地址格式化
+func (TbActivity *TbActivity)FormatAddressTo() []*TbAddress  {
+	var addTo []*TbAddress
+
+	for _, v := range TbActivity.AddressFrom {
+
+		if v.Type == 2 {
+			addTo = append(addTo, v)
+			TbActivity.AddressFrom = addTo
+		}
+
+	}
+
+	return TbActivity.AddressTo
+
+}
 
 //活动日期格式化
 func (TbActivity *TbActivity)FormatTime(time string, typeTime string) string  {
@@ -84,6 +95,12 @@ func (TbActivity *TbActivity)FormatTime(time string, typeTime string) string  {
 
 
 }
+
+
+
+
+
+
 
 
 //解耦格式化目的地
