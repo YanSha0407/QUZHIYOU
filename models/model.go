@@ -6,6 +6,7 @@ import (
 	"github.com/jinzhu/gorm"
 	"log"
 	_ "github.com/go-sql-driver/mysql"
+	"os"
 )
 
 var DB *gorm.DB
@@ -17,12 +18,9 @@ func Initialized() {
 	// 申明变量
 	var (
 		err error
-		//connectSql = "root:loveys1314@tcp(127.0.0.1:3306)/qzy_official_service?charset=utf8&parseTime=True&loc=Local"
-		connectSql = "root:123qaz!@#@tcp(39.97.230.148:3306)/qzy_official_service?charset=utf8&parseTime=True&loc=Local"
-		databaseCfg = "mysql"
 	)
 	// 连接数据库
-	DB, err = gorm.Open(databaseCfg, connectSql)
+	DB, err = gorm.Open("mysql", os.Getenv("MYSQL_DSN"))
 	if err != nil {
 		log.Fatalf("database connection error: %v", err);
 		return
@@ -30,15 +28,13 @@ func Initialized() {
 
 	Client = redis.NewClient(&redis.Options{
 		Addr:     "127.0.0.1:6379",
-		Password: "", // no password set
-		DB:       0,  // use default DB
+		Password: "",
+		DB:       0,
 	})
 	fmt.Println(Client,"------")
 
 
 	DB.SingularTable(true)
-
-	//DB.AutoMigrate(&Diary{})
 
 	DB.DB().SetMaxIdleConns(10)
 	DB.DB().SetMaxOpenConns(5000)

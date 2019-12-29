@@ -3,9 +3,11 @@ package main
 import (
 	"QUZHIYOU/models"
 	"QUZHIYOU/routers"
+	"github.com/joho/godotenv"
 )
 
 func init()  {
+	godotenv.Load()
 	models.Initialized()
 }
 
