@@ -53,10 +53,7 @@ func ActivityList(this *gin.Context) {
 }
 
 
-
-
-
-
+//活动详情data
 type ActivityInfoJson struct {
 	ActivityInfo models.TbActivity  `json:"activityInfo"`
 	Banner       []*models.TbBanner `json:"banner"`
