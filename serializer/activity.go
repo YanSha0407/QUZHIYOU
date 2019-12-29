@@ -31,6 +31,13 @@ type TbActivity struct {
 	Views         int64     ` json:"views,omitempty" gorm:"column:VIEWS"`                     // 浏览量
 	HtmlCon       string    ` json:"htmlCon,omitempty" gorm:"column:HTML_CON"`
 
+	//	关联字段
+	Welfares      []*models.TbWelfare  `json:"welfareList,omitempty" gorm:"ForeignKey:ActivityId" `
+
+	AddressFrom   []*models.TbAddress  `json:"gatherAddList,omitempty" gorm:"ForeignKey:ActivityId"`
+
+	AddressTo     []*models.TbAddress   `json:"destinationList,omitempty"  gorm:"ForeignKey:ActivityId"`
+
 }
 
 // BuildVideo 序列化视频
@@ -42,6 +49,24 @@ func BuildVideo(item models.TbActivity) TbActivity {
 		Tags:       item.Tags,
 		TagsInfo:    item.TagsInfo,
 		Price:      item.Price,
+		PriceTag:        item.PriceTag,
+		OriginalPrice:     item.OriginalPrice,
+		Image:      item.Image,
+		MemNum:       item.MemNum,
+		TotalNum:    item.TotalNum,
+		CollectionNum:      item.CollectionNum,
+		Status:        item.Status,
+		Author:     item.Author,
+		SignStartTime:      item.SignStartTime,
+		SignEndTime:       item.SignEndTime,
+		ActiveStartTime:    item.ActiveStartTime,
+		ActiveEndTime:      item.ActiveEndTime,
+		Views:        item.Views,
+		HtmlCon:     item.HtmlCon,
+		Welfares:      item.Welfares,
+		AddressFrom:       item.AddressFrom,
+		AddressTo:    item.AddressTo,
+
 	}
 }
 

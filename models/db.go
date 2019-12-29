@@ -45,7 +45,6 @@ type TbActivity struct {
 }
 
 
-
 //活动日期格式化
 
 func (TbActivity *TbActivity)FormatTime(active *TbActivity) (string,string,string,string)  {
@@ -58,10 +57,6 @@ func (TbActivity *TbActivity)FormatTime(active *TbActivity) (string,string,strin
 
 	return active.SignStartTime,active.SignEndTime,active.ActiveStartTime,active.ActiveEndTime
 }
-
-
-
-
 
 
 
