@@ -78,3 +78,26 @@ func BuildActivitys(items []models.TbActivity) (activitys []TbActivity) {
 	}
 	return activitys
 }
+
+
+
+
+
+
+//活动详情
+
+type ActivityInfoJson struct {
+	ActivityInfo interface{}  `json:"activityInfo"`
+	Banner       interface{} `json:"banner"`
+}
+
+
+// BuildListResponse 列表构建器
+func ActivityInfoResponse(ActivityInfo interface{}, Banner interface{}) Response {
+	return Response{
+		Data: ActivityInfoJson{
+			ActivityInfo: ActivityInfo,
+			Banner: Banner,
+		},
+	}
+}
