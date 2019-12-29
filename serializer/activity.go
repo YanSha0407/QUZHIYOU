@@ -89,7 +89,7 @@ type ActivityInfoJson struct {
 }
 
 // 活动详情序列器
-func ActivityInfoResponse(ActivityInfo models.TbActivity, Banner []*models.TbBanner) Response {
+func ActivityInfoResponse(ActivityInfo models.TbActivity, Banner []*models.TbBanner,) Response {
 	return Response{
 		Data: ActivityInfoJson{
 			ActivityInfo: ActivityInfo,
