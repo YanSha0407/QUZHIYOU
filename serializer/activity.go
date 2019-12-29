@@ -64,8 +64,8 @@ func BuildActivity(item models.TbActivity) TbActivity {
 		Views:        item.Views,
 		HtmlCon:     item.HtmlCon,
 		Welfares:      item.Welfares,
-		AddressFrom:       item.FormatAddressFrom(&item),
-		AddressTo:    item.FormatAddressTo(&item),
+		AddressFrom:       item.FormatAddressFrom(),
+		AddressTo:    item.FormatAddressTo(),
 	}
 }
 

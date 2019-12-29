@@ -1,5 +1,6 @@
 package models
 
+import "fmt"
 
 //活动
 type TbActivity struct {
@@ -41,33 +42,36 @@ type TbActivity struct {
 
 
 //出发活动地址格式化
-func (TbActivity *TbActivity)FormatAddressFrom(active *TbActivity) ([]*TbAddress)  {
+func (TbActivity *TbActivity)FormatAddressFrom() ([]*TbAddress)  {
 	var add []*TbAddress
-	for _, v := range active.AddressFrom {
+	for _, v := range TbActivity.AddressFrom {
 		//1出发地 2目的地
 		if v.Type == 1 {
 			add = append(add, v)
 		}
 	}
-	active.AddressFrom = add
-	return active.AddressFrom
+	TbActivity.AddressFrom = add
+
+	fmt.Println(add,"-------出发地------")
+
+	return TbActivity.AddressFrom
 
 }
 
 
 //目的地活动地址格式化
-func (TbActivity *TbActivity)FormatAddressTo(active *TbActivity) ([]*TbAddress)  {
+func (TbActivity *TbActivity)FormatAddressTo() ([]*TbAddress)  {
 	var addto []*TbAddress
-	for _, v := range active.AddressFrom {
+	for _, v := range TbActivity.AddressFrom {
 		//1出发地 2目的地
 	 if v.Type == 2 {
 			addto = append(addto, v)
 		}
 	}
 
-	active.AddressTo = addto
+	TbActivity.AddressTo = addto
 
-	return active.AddressTo
+	return TbActivity.AddressTo
 
 
 }
@@ -75,7 +79,7 @@ func (TbActivity *TbActivity)FormatAddressTo(active *TbActivity) ([]*TbAddress) 
 
 
 
-
+//格式化目的地
 func (TbActivity *TbActivity)FormatAddress1(active *TbActivity) ([]*TbAddress,[]*TbAddress)  {
 
 	var add []*TbAddress
