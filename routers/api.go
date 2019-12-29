@@ -4,7 +4,7 @@ import (
 	"QUZHIYOU/app/http/controllers"
 	"QUZHIYOU/app/http/controllers/diary"
 	"QUZHIYOU/app/http/controllers/qrcode"
-	"QUZHIYOU/app/http/middleware"
+	"QUZHIYOU/middleware"
 	"github.com/gin-gonic/gin"
 )
 
