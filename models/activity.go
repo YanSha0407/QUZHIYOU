@@ -1,7 +1,5 @@
 package models
 
-import "fmt"
-
 //活动
 type TbActivity struct {
 	ActivityId    int64     ` gorm:"primary_key;column:ACTIVITY_ID" json:"activityId"`     // 活动ID
@@ -42,7 +40,7 @@ type TbActivity struct {
 
 
 //出发活动地址格式化
-func (TbActivity *TbActivity)FormatAddressFrom() ([]*TbAddress)  {
+func (TbActivity *TbActivity)FormatAddressFrom() []*TbAddress  {
 	var add []*TbAddress
 	for _, v := range TbActivity.AddressFrom {
 		//1出发地 2目的地
@@ -52,23 +50,20 @@ func (TbActivity *TbActivity)FormatAddressFrom() ([]*TbAddress)  {
 	}
 	TbActivity.AddressFrom = add
 
-	fmt.Println(add,"-------出发地------")
-
 	return TbActivity.AddressFrom
 
 }
 
 
 //目的地活动地址格式化
-func (TbActivity *TbActivity)FormatAddressTo() ([]*TbAddress)  {
+func (TbActivity *TbActivity)FormatAddressTo() []*TbAddress  {
 	var addto []*TbAddress
-	for _, v := range TbActivity.AddressFrom {
+	for _, v := range TbActivity.AddressTo {
 		//1出发地 2目的地
 	 if v.Type == 2 {
 			addto = append(addto, v)
 		}
 	}
-
 	TbActivity.AddressTo = addto
 
 	return TbActivity.AddressTo
@@ -78,8 +73,7 @@ func (TbActivity *TbActivity)FormatAddressTo() ([]*TbAddress)  {
 
 
 
-
-//格式化目的地
+//解耦格式化目的地
 func (TbActivity *TbActivity)FormatAddress1(active *TbActivity) ([]*TbAddress,[]*TbAddress)  {
 
 	var add []*TbAddress

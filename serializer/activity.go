@@ -1,6 +1,9 @@
 package serializer
 
-import "QUZHIYOU/models"
+import (
+	"QUZHIYOU/models"
+	"fmt"
+)
 
 
 //活动
@@ -79,19 +82,23 @@ func BuildActivitys(items []models.TbActivity) (activitys []TbActivity) {
 }
 
 
-
-
 //活动详情
 type ActivityInfoJson struct {
-	ActivityInfo *models.TbActivity  `json:"activityInfo"`
+	ActivityInfo  *TbActivity  `json:"activityInfo"`
 	Banner       *[]*models.TbBanner `json:"banner"`
 }
 
 // 活动详情序列器
-func ActivityInfoResponse(ActivityInfo *models.TbActivity, Banner *[]*models.TbBanner,) Response {
+func ActivityInfoResponse(ActivityInfo models.TbActivity, Banner *[]*models.TbBanner,) Response {
+
+	info := BuildActivity(ActivityInfo)
+
+	fmt.Println(info,"------")
+
+
 	return Response{
 		Data: ActivityInfoJson{
-			ActivityInfo: ActivityInfo,
+			ActivityInfo: &info,
 			Banner: Banner,
 		},
 	}

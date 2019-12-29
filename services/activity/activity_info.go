@@ -49,6 +49,6 @@ func (activityInfo *ActivityInfo) GetActivityInfo(ActivityId string) serializer.
 
 
 
-	return serializer.ActivityInfoResponse(&actiInfo,&banners)
+	return serializer.ActivityInfoResponse(actiInfo,&banners)
 
 }
