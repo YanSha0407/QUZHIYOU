@@ -1,6 +1,6 @@
 package serializer
 
-
+import "QUZHIYOU/models"
 
 
 //活动
@@ -31,4 +31,25 @@ type TbActivity struct {
 	Views         int64     ` json:"views,omitempty" gorm:"column:VIEWS"`                     // 浏览量
 	HtmlCon       string    ` json:"htmlCon,omitempty" gorm:"column:HTML_CON"`
 
+}
+
+// BuildVideo 序列化视频
+func BuildVideo(item models.TbActivity) TbActivity {
+	return TbActivity{
+		ActivityId:        item.ActivityId,
+		ActivityName:     item.ActivityName,
+		SubName:      item.SubName,
+		Tags:       item.Tags,
+		TagsInfo:    item.TagsInfo,
+		Price:      item.Price,
+	}
+}
+
+// BuildVideos 序列化视频列表
+func BuildVideos(items []models.TbActivity) (activitys []TbActivity) {
+	for _, item := range items {
+		act := BuildVideo(item)
+		activitys = append(activitys, act)
+	}
+	return activitys
 }

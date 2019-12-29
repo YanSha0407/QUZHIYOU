@@ -1,8 +1,8 @@
 package activity
 
 import (
-	"QUZHIYOU/app/models"
 	"QUZHIYOU/app/response"
+	"QUZHIYOU/models"
 	"QUZHIYOU/utils"
 	"github.com/gin-gonic/gin"
 	"net/http"

@@ -1,7 +1,7 @@
 package serializer
 
 import (
-	"QUZHIYOU/app/models"
+	"QUZHIYOU/models"
 	"time"
 )
 

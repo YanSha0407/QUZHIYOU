@@ -1,7 +1,7 @@
 package main
 
 import (
-	"QUZHIYOU/app/models"
+	"QUZHIYOU/models"
 	"QUZHIYOU/routers"
 )
 

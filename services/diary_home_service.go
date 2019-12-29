@@ -1,7 +1,7 @@
 package services
 
 import (
-	"QUZHIYOU/app/models"
+	"QUZHIYOU/models"
 	"QUZHIYOU/serializer"
 )
 
