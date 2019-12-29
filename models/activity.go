@@ -39,8 +39,32 @@ type TbActivity struct {
 }
 
 
-//活动日期格式化
 
+//活动地址格式化
+
+func (TbActivity *TbActivity)FormatAddress(active *TbActivity) ([]*TbAddress,[]*TbAddress)  {
+
+	var add []*TbAddress
+	var addto []*TbAddress
+
+	for _, v := range active.AddressFrom {
+		//1出发地 2目的地
+		if v.Type == 1 {
+			add = append(add, v)
+		} else if v.Type == 2 {
+			addto = append(addto, v)
+		}
+	}
+
+	active.AddressFrom = add
+	active.AddressTo = addto
+
+	return active.AddressFrom,active.AddressTo
+
+
+}
+
+//活动日期格式化
 func (TbActivity *TbActivity)FormatTime(active *TbActivity) (string,string,string,string)  {
 
 	active.SignStartTime=active.SignStartTime[:10]

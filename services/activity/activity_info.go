@@ -44,21 +44,9 @@ func (activityInfo *ActivityInfo) GetActivityInfo(ActivityId string) serializer.
 
 	actiInfo.FormatTime(&actiInfo)
 
+	actiInfo.FormatAddress(&actiInfo)
 
-	var add []*models.TbAddress
-	var addto []*models.TbAddress
 
-	for _, v := range actiInfo.AddressFrom {
-		//1出发地 2目的地
-		if v.Type == 1 {
-			add = append(add, v)
-		} else if v.Type == 2 {
-			addto = append(addto, v)
-		}
-	}
-
-	actiInfo.AddressFrom = add
-	actiInfo.AddressTo = addto
 
 	return serializer.ActivityInfoResponse(&actiInfo,&banners)
 
