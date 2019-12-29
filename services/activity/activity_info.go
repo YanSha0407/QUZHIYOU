@@ -21,6 +21,7 @@ func (activityInfo *ActivityInfo) GetActivityInfo(ActivityId string) serializer.
 	actiInfo := models.TbActivity{
 		ActivityId: utils.String2Int64(ActivityId),
 	}
+
 	var banners []*models.TbBanner
 
 

@@ -19,7 +19,6 @@ func ActivityList(this *gin.Context) {
 }
 
 
-
 //获取活动详情信息
 func ActivityInfo(this *gin.Context) {
 

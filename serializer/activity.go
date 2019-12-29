@@ -40,8 +40,8 @@ type TbActivity struct {
 
 }
 
-// BuildVideo 序列化视频
-func BuildVideo(item models.TbActivity) TbActivity {
+// Build  活动序列化
+func BuildActivity(item models.TbActivity) TbActivity {
 	return TbActivity{
 		ActivityId:        item.ActivityId,
 		ActivityName:     item.ActivityName,
@@ -70,10 +70,10 @@ func BuildVideo(item models.TbActivity) TbActivity {
 	}
 }
 
-// BuildVideos 序列化视频列表
+// 首页活动列表序列器
 func BuildActivitys(items []models.TbActivity) (activitys []TbActivity) {
 	for _, item := range items {
-		act := BuildVideo(item)
+		act := BuildActivity(item)
 		activitys = append(activitys, act)
 	}
 	return activitys
@@ -82,18 +82,14 @@ func BuildActivitys(items []models.TbActivity) (activitys []TbActivity) {
 
 
 
-
-
 //活动详情
-
 type ActivityInfoJson struct {
-	ActivityInfo interface{}  `json:"activityInfo"`
-	Banner       interface{} `json:"banner"`
+	ActivityInfo models.TbActivity  `json:"activityInfo"`
+	Banner       []*models.TbBanner `json:"banner"`
 }
 
-
-// BuildListResponse 列表构建器
-func ActivityInfoResponse(ActivityInfo interface{}, Banner interface{}) Response {
+// 活动详情序列器
+func ActivityInfoResponse(ActivityInfo models.TbActivity, Banner []*models.TbBanner) Response {
 	return Response{
 		Data: ActivityInfoJson{
 			ActivityInfo: ActivityInfo,
