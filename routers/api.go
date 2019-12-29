@@ -3,6 +3,7 @@ package routers
 import (
 	"QUZHIYOU/app/http/controllers/activity"
 	"QUZHIYOU/app/http/controllers/diary"
+	"QUZHIYOU/app/http/controllers/qrcode"
 	"github.com/gin-gonic/gin"
 	"QUZHIYOU/app/http/middleware"
 )
@@ -20,6 +21,7 @@ func InitRouter() *gin.Engine {
 		api.GET("/wechat/activity/selectActivityList", activity.ActivityList)
 		api.GET("/wechat/activity/selectActivicyInfoById", activity.ActivityInfo)
 		api.GET("/homediarys", diary.HomeList)
+		api.GET("/getqrcode", qrcode.Getqrcode)
 	}
 
 
