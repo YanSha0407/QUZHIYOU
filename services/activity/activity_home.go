@@ -6,14 +6,14 @@ import (
 	"QUZHIYOU/serializer"
 )
 
-// ListVideoService 视频列表服务
-type ListVideoService struct {
-	Page int `form:"page" json:"page"`
-	Size int `form:"size" json:"size"`
+// ListActivityService 首页列表服务 需要传递page size参数
+type ListActivityService struct {
+	Page int `form:"page" json:"page" `
+	Size int `form:"size" json:"size" `
 }
 
 // List 活动列表
-func (service *ListVideoService) List() serializer.Response {
+func (service *ListActivityService) List() serializer.Response {
 
 
 	activitys := []models.TbActivity{}

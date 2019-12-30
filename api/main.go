@@ -1,6 +1,7 @@
 package api
 
 import (
+	"QUZHIYOU/conf"
 	"QUZHIYOU/serializer"
 	"encoding/json"
 	"fmt"
@@ -8,17 +9,18 @@ import (
 )
 
 
+
+
 // ErrorResponse 返回错误消息
 func ErrorResponse(err error) serializer.Response {
 	if ve, ok := err.(validator.ValidationErrors); ok {
 		for _, e := range ve {
-			fmt.Println(e)
-			//field := conf.T(fmt.Sprintf("Field.%s", e.Field))
-			//tag := conf.T(fmt.Sprintf("Tag.Valid.%s", e.Tag))
+			field := conf.T(fmt.Sprintf("Field.%s", e.Field))
+			tag := conf.T(fmt.Sprintf("Tag.Valid.%s", e.Tag))
 			return serializer.Response{
 				Code: 40001,
-				Msg:    "fail",
-				Error:  "err",
+				Msg:    fmt.Sprintf("%s%s", field, tag),
+				Error:  fmt.Sprint(err),
 			}
 		}
 	}
@@ -36,3 +38,5 @@ func ErrorResponse(err error) serializer.Response {
 		Error:  fmt.Sprint(err),
 	}
 }
+
+
