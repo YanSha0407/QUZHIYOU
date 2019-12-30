@@ -4,6 +4,7 @@ import (
 	"QUZHIYOU/models"
 	"QUZHIYOU/serializer"
 	"QUZHIYOU/utils"
+	"github.com/jinzhu/gorm"
 )
 
 //活动详情data
@@ -35,7 +36,9 @@ func (activityInfo *ActivityInfo) GetActivityInfo(ActivityId string) serializer.
 		Preload("Welfares").
 		Preload("AddressFrom").
 		Preload("AddressTo").
-		First(&actiInfo).Error
+		First(&actiInfo).
+		UpdateColumn("VIEWS", gorm.Expr("VIEWS + ?", 1)).
+		Error
 	if err != nil {
 		return serializer.Response{
 			Code: 404,
