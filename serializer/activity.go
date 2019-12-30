@@ -54,7 +54,6 @@ func BuildActivityHome(item *models.TbActivity) *TbActivity {
 		PriceTag:        item.PriceTag,
 		OriginalPrice:     item.OriginalPrice,
 		Image:      item.Image,
-		MemNum:       item.MemNum,
 		TotalNum:    item.TotalNum,
 		Status:        item.Status,
 	}
