@@ -16,10 +16,6 @@ func (u *User) WxUserLogin() serializer.Response {
 	var user models.TbUser
 
 
-
-
-
-
 	//	获取code 查询数据库 没有需创建用户
 
 	res, err := weapp.Login(os.Getenv("WXAPP_ID"), os.Getenv("WXSECRET"), u.Code)
@@ -53,7 +49,7 @@ func (u *User) WxUserLogin() serializer.Response {
 		//	创建用户
 		oneUser := models.TbUser{OpenId: res.OpenID, SessionKey: res.SessionKey,AccessToken:token.AccessToken}
 
-		
+
 		models.DB.Save(&oneUser)
 
 		return serializer.Response{
