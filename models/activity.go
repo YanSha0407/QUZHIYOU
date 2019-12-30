@@ -18,6 +18,7 @@ type TbActivity struct {
 	Author        string    ` json:"author,omitempty" gorm:"column:AUTHOR"`                   // 创建者
 	DateAdd       string ` json:"dateAdd,omitempty" gorm:"column:DATE_ADD"`               // 活动创建时间
 	DateUpdate    string ` json:"dateUpdate,omitempty" gorm:"column:DATE_UPDATE"`         // 活动更新时间
+
 	SignStartTime  string   ` json:"signStartTime,omitempty" gorm:"column:SIGN_START_TIME"` // 报名开始时间
 	SignEndTime   string    ` json:"signEndTime,omitempty" gorm:"column:SIGN_END_TIME"`     // 报名结束时间
 
@@ -41,15 +42,13 @@ type TbActivity struct {
 
 //活动出发地址格式化
 func (TbActivity *TbActivity)FormatAddressFrom() []*TbAddress  {
+
 	var addFrom []*TbAddress
-
 	for _, v := range TbActivity.AddressFrom {
-
 		if v.Type == 1 {
 			addFrom = append(addFrom, v)
 			TbActivity.AddressFrom = addFrom
 		}
-
 	}
 
 	return TbActivity.AddressFrom
@@ -59,16 +58,12 @@ func (TbActivity *TbActivity)FormatAddressFrom() []*TbAddress  {
 //活动目的地址格式化
 func (TbActivity *TbActivity)FormatAddressTo() []*TbAddress  {
 	var addTo []*TbAddress
-
 	for _, v := range TbActivity.AddressFrom {
-
 		if v.Type == 2 {
 			addTo = append(addTo, v)
 			TbActivity.AddressFrom = addTo
 		}
-
 	}
-
 	return TbActivity.AddressTo
 
 }

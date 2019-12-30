@@ -2,7 +2,6 @@ package serializer
 
 import (
 	"QUZHIYOU/models"
-	"fmt"
 )
 
 
@@ -66,9 +65,11 @@ func BuildActivity(item models.TbActivity) TbActivity {
 		ActiveEndTime:      item.FormatTime(item.ActiveEndTime,"ActiveEndTime"),
 		Views:        item.Views,
 		HtmlCon:     item.HtmlCon,
+		//福利
 		Welfares:      item.Welfares,
-
+		//出发地
 		AddressFrom:       item.FormatAddressFrom(),
+		//目的地
 		AddressTo:    item.FormatAddressTo(),
 	}
 }
@@ -91,12 +92,7 @@ type ActivityInfoJson struct {
 
 // 活动详情序列器
 func ActivityInfoResponse(ActivityInfo models.TbActivity, Banner *[]*models.TbBanner,) Response {
-
 	info := BuildActivity(ActivityInfo)
-
-	fmt.Println(info,"------")
-
-
 	return Response{
 		Data: ActivityInfoJson{
 			ActivityInfo: &info,
