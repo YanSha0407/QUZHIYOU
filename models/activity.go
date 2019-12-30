@@ -39,6 +39,14 @@ type TbActivity struct {
 }
 
 
+//views+1
+
+func (TbActivity *TbActivity)AddViewNum() int64 {
+
+	return TbActivity.Views+1
+
+}
+
 
 //活动出发地址格式化
 func (TbActivity *TbActivity)FormatAddressFrom() []*TbAddress  {

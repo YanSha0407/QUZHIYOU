@@ -91,7 +91,7 @@ func BuildActivity(item *models.TbActivity) *TbActivity {
 		SignEndTime:       item.FormatTime(item.SignEndTime,"SignEndTime"),
 		ActiveStartTime:    item.FormatTime(item.ActiveStartTime,"ActiveStartTime"),
 		ActiveEndTime:      item.FormatTime(item.ActiveEndTime,"ActiveEndTime"),
-		Views:        item.Views,
+		Views:        item.AddViewNum(),
 		HtmlCon:     item.HtmlCon,
 		//福利
 		Welfares:      item.Welfares,
