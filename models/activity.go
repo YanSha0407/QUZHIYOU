@@ -11,7 +11,7 @@ type TbActivity struct {
 	PriceTag      string    ` json:"priceTag,omitempty" gorm:"column:PRICE_TAG"`           // 首届
 	OriginalPrice int64     ` json:"originalPrice,omitempty" gorm:"column:ORIGINAL_PRICE"` // 原价
 	Image         string    ` json:"image,omitempty" gorm:"column:IMAGE"`
-	MemNum        int64     ` json:"memNum" gorm:"column:MEM_NUM"`                 // 已报名人数
+	MemNum        *int64     ` json:"memNum" gorm:"column:MEM_NUM"`                 // 已报名人数
 	TotalNum      int64     ` json:"totalNum,omitempty" gorm:"column:TOTAL_NUM"`             // 计划总人数
 	CollectionNum int64     ` json:"collectionNum,omitempty" gorm:"column:COLLECTION_NUM"`   // 收藏数
 	Status        string    ` json:"status,omitempty" gorm:"column:STATUS"`                   // 活动状态：未开始/进行中/已结束
