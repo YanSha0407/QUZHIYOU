@@ -64,14 +64,13 @@ func (TbActivity *TbActivity)FormatAddressFrom() []*TbAddress  {
 }
 
 
-
 //活动目的地址格式化
 func (TbActivity *TbActivity)FormatAddressTo() []*TbAddress  {
 	var addTo []*TbAddress
 	for _, v := range TbActivity.AddressTo {
 		if v.Type == 2 {
 			addTo = append(addTo, v)
-			TbActivity.AddressFrom = addTo
+			TbActivity.AddressTo = addTo
 		}
 	}
 	return TbActivity.AddressTo
