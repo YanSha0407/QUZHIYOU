@@ -8,7 +8,9 @@ import (
 
 func init() {
 	godotenv.Load()
+
 	models.Initialized()
+
 }
 
 func main() {
