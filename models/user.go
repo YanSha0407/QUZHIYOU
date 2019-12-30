@@ -10,4 +10,5 @@ type TbUser struct {
 	UnionId       string `  gorm:"column:UNION_ID" json:"unionId"`
 	UserName       string `  gorm:"column:USER_NAME" json:"userName"`
 	UserFrom      string `  gorm:"column:USER_FROM" json:"userFrom"`
+	AccessToken      string `  gorm:"column:ACCESS_TOKEN" json:"accessToken"`
 }
