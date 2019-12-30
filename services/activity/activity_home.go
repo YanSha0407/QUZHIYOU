@@ -21,7 +21,7 @@ func (service *ListVideoService) List() serializer.Response {
 	total := 0
 
 	if service.Size == 0 {
-		service.Size = 1
+		service.Size = 10
 	}
 	if service.Page == 0 {
 		service.Page = 1
@@ -37,8 +37,8 @@ func (service *ListVideoService) List() serializer.Response {
 		}
 	}
 
-	showRows:=[]string{"ACTIVITY_ID","ACTIVITY_NAME","SUB_NAME","IMAGE","ORIGINAL_PRICE","TOTAL_NUM","PRICE_TAG","PRICE","STATUS","TAGS"}
-	if err := models.DB.Limit(service.Size).Offset(start).Find(&activitys).Select(showRows).Error; err != nil {
+	showRows:=[]string{"ACTIVITY_ID","ACTIVITY_NAME","SUB_NAME","IMAGE","ORIGINAL_PRICE","TOTAL_NUM","PRICE_TAG","PRICE","STATUS","TAGS","MEM_NUM"}
+	if err := models.DB.Select(showRows).Limit(service.Size).Offset(start).Find(&activitys).Error; err != nil {
 		return serializer.Response{
 			Code: 50000,
 			Msg:    "数据库连接错误",
