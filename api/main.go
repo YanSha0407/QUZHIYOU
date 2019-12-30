@@ -5,7 +5,7 @@ import (
 	"QUZHIYOU/serializer"
 	"encoding/json"
 	"fmt"
-	"gopkg.in/go-playground/validator.v9"
+	validator "gopkg.in/go-playground/validator.v9"
 )
 
 
@@ -13,12 +13,19 @@ import (
 
 // ErrorResponse 返回错误消息
 func ErrorResponse(err error) serializer.Response {
+
+	fmt.Println(err,"999999")
 	if ve, ok := err.(validator.ValidationErrors); ok {
+		fmt.Println(ve,"------eeeee-----")
+
 		for _, e := range ve {
-			field := conf.T(fmt.Sprintf("Field.%s", e.Field))
-			tag := conf.T(fmt.Sprintf("Tag.Valid.%s", e.Tag))
+			
+			field := conf.T(fmt.Sprintf("Field.%s", e.Field()))
+
+			tag := conf.T(fmt.Sprintf("Tag.Valid.%s", e.Tag()))
+
 			return serializer.Response{
-				Code: 40001,
+				Code: 40002,
 				Msg:    fmt.Sprintf("%s%s", field, tag),
 				Error:  fmt.Sprint(err),
 			}

@@ -2,6 +2,7 @@ package api
 
 import (
 	"QUZHIYOU/services/activity"
+	"fmt"
 	"github.com/gin-gonic/gin"
 )
 
@@ -13,6 +14,7 @@ func ActivityList(this *gin.Context) {
 		res := service.List()
 		this.JSON(200, res)
 	} else {
+		fmt.Println(err,"8888888888888")
 		this.JSON(200, ErrorResponse(err))
 	}
 
