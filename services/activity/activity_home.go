@@ -8,8 +8,8 @@ import (
 
 // ListActivityService 首页列表服务 需要传递page size参数
 type ListActivityService struct {
-	Page int `form:"page" json:"page" binding:"required,min=1"`
-	Size int `form:"size" json:"size" binding:"required,min=5"`
+	Page int `form:"page" json:"page" binding:"required"`
+	Size int `form:"size" json:"size" binding:"required"`
 }
 
 // List 活动列表
