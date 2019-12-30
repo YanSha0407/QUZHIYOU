@@ -43,10 +43,9 @@ type TbActivity struct {
 }
 
 
-
-// Build  活动详情序列化
-func BuildActivityHome(item *models.TbActivity) TbActivity {
-	return TbActivity{
+// Build  首页序列化
+func BuildActivityHome(item *models.TbActivity) *TbActivity {
+	return &TbActivity{
 		ActivityId:        item.ActivityId,
 		ActivityName:     item.ActivityName,
 		SubName:      item.SubName,
@@ -62,7 +61,7 @@ func BuildActivityHome(item *models.TbActivity) TbActivity {
 }
 
 // 首页活动列表序列器
-func BuildActivitys(items []models.TbActivity) (activitys []TbActivity) {
+func BuildActivitys(items []models.TbActivity) (activitys []*TbActivity) {
 	for _, item := range items {
 		act := BuildActivityHome(&item)
 		activitys = append(activitys, act)
@@ -72,9 +71,12 @@ func BuildActivitys(items []models.TbActivity) (activitys []TbActivity) {
 
 
 
+
+
+
 // Build  活动详情序列化
-func BuildActivity(item *models.TbActivity) TbActivity {
-	return TbActivity{
+func BuildActivity(item *models.TbActivity) *TbActivity {
+	return &TbActivity{
 		ActivityId:        item.ActivityId,
 		ActivityName:     item.ActivityName,
 		SubName:      item.SubName,
@@ -114,7 +116,7 @@ func ActivityInfoResponse(ActivityInfo models.TbActivity, Banner *[]*models.TbBa
 	info := BuildActivity(&ActivityInfo)
 	return Response{
 		Data: ActivityInfoJson{
-			ActivityInfo: &info,
+			ActivityInfo: info,
 			Banner: Banner,
 		},
 	}
