@@ -115,7 +115,7 @@ type ActivityInfoJson struct {
 func ActivityInfoResponse(ActivityInfo models.TbActivity, Banner *[]*models.TbBanner,) Response {
 	info := BuildActivity(&ActivityInfo)
 	return Response{
-		Data: ActivityInfoJson{
+		Data: &ActivityInfoJson{
 			ActivityInfo: info,
 			Banner: Banner,
 		},
