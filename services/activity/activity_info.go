@@ -7,28 +7,26 @@ import (
 	"github.com/jinzhu/gorm"
 )
 
-//活动详情data
+//活动详情传递参数信息
+
 type ActivityInfo struct {
-
-
 	ActivityId string `form:"activityId" json:"activityId"`
-
 }
 
 
 
-func (activityInfo *ActivityInfo) GetActivityInfo(ActivityId string) serializer.Response {
+func (activityInfo *ActivityInfo) GetActivityInfo() serializer.Response {
 
 
 
 	actiInfo := models.TbActivity{
-		ActivityId: utils.String2Int64(ActivityId),
+		ActivityId: utils.String2Int64(activityInfo.ActivityId),
 	}
 
 	var banners []*models.TbBanner
 
 
-	models.DB.Find(&banners,"ACTIVITY_ID=?",ActivityId)
+	models.DB.Find(&banners,"ACTIVITY_ID=?",utils.String2Int64(activityInfo.ActivityId))
 
 
 	err :=models.DB.

@@ -25,7 +25,7 @@ func ActivityInfo(this *gin.Context) {
 	service:=activity.ActivityInfo{}
 
 	if err := this.ShouldBind(&service); err == nil {
-		res := service.GetActivityInfo(service.ActivityId)
+		res := service.GetActivityInfo()
 		this.JSON(200, res)
 	} else {
 		this.JSON(200, ErrorResponse(err))
