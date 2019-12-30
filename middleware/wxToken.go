@@ -12,11 +12,8 @@ func WXToken() gin.HandlerFunc {
 	return func(c *gin.Context) {
 
 
-		res, err := weapp.GetAccessToken(os.Getenv("WXAPP_ID"), os.Getenv("WXSECRET"))
-		if err != nil {
-			// 处理一般错误信息
-			return
-		}
+		res, _ := weapp.GetAccessToken(os.Getenv("WXAPP_ID"), os.Getenv("WXSECRET"))
+
 
 		if err := res.GetResponseError(); err !=nil {
 			// 处理微信返回错误信息

@@ -2,7 +2,6 @@ package routers
 
 import (
 	"QUZHIYOU/api"
-	"QUZHIYOU/middleware"
 	"github.com/gin-gonic/gin"
 )
 
@@ -15,7 +14,7 @@ func InitRouter() *gin.Engine {
 	{
 		// 使用中间价
 		//v1.Use(middleware.JWTAuth())
-		v1.Use(middleware.WXToken())
+		//v1.Use(middleware.WXToken())
 		//首页活动列表
 		v1.GET("/wechat/activity/selectActivityList", api.ActivityList)
 		//活动详情信息
