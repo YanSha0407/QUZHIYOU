@@ -71,9 +71,6 @@ func BuildActivitys(items []models.TbActivity) (activitys []*TbActivity) {
 
 
 
-
-
-
 // Build  活动详情序列化
 func BuildActivity(item *models.TbActivity) *TbActivity {
 	return &TbActivity{
