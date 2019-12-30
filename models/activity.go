@@ -55,11 +55,9 @@ func (TbActivity *TbActivity)FormatAddressFrom() []*TbAddress  {
 	for _, v := range TbActivity.AddressFrom {
 		if v.Type == 1 {
 			addFrom = append(addFrom, v)
-			 TbActivity.AddressFrom = addFrom
 		}
 	}
-
-	return TbActivity.AddressFrom
+	return  addFrom
 
 }
 
@@ -70,10 +68,9 @@ func (TbActivity *TbActivity)FormatAddressTo() []*TbAddress  {
 	for _, v := range TbActivity.AddressTo {
 		if v.Type == 2 {
 			addTo = append(addTo, v)
-			TbActivity.AddressTo = addTo
 		}
 	}
-	return TbActivity.AddressTo
+	return addTo
 
 }
 
