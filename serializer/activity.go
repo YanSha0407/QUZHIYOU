@@ -59,7 +59,7 @@ func BuildActivityHome(item *models.TbActivity) *TbActivity {
 	}
 }
 
-// 首页活动列表序列器
+// 首页活动结果
 func BuildActivitys(items []models.TbActivity) (activitys []*TbActivity) {
 	for _, item := range items {
 		act := BuildActivityHome(&item)
@@ -101,6 +101,8 @@ func BuildActivity(item *models.TbActivity) *TbActivity {
 		AddressTo:    item.FormatAddressTo(),
 	}
 }
+
+
 //活动详情
 type ActivityInfoJson struct {
 	ActivityInfo  *TbActivity  `json:"activityInfo"`
