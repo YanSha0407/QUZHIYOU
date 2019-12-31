@@ -8,7 +8,9 @@ import (
 //获取首页列表
 
 func ActivityList(this *gin.Context) {
+
 	service := activity.ListActivityService{}
+
 	if err := this.ShouldBind(&service); err == nil {
 		res := service.List()
 		this.JSON(200, res)

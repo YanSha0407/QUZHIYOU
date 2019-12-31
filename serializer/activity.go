@@ -59,6 +59,8 @@ func BuildActivityHome(item *models.TbActivity) *TbActivity {
 	}
 }
 
+
+
 // 首页活动结果
 func BuildActivitys(items []models.TbActivity) (activitys []*TbActivity) {
 	for _, item := range items {
