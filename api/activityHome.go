@@ -2,21 +2,29 @@ package api
 
 import (
 	"QUZHIYOU/services/activity"
+	"fmt"
 	"github.com/gin-gonic/gin"
+	"time"
 )
 
 //获取首页列表
 
-func ActivityList(this *gin.Context) {
+func ActivityList(that *gin.Context) {
 
-	service := activity.ListActivityService{}
+	this:=that.Copy()
 
-	if err := this.ShouldBind(&service); err == nil {
-		res := service.List()
-		this.JSON(200, res)
-	} else {
-		this.JSON(200, ErrorResponse(err))
-	}
+	go func() {
+		time.Sleep(20*time.Second)
+		service := activity.ListActivityService{}
+
+		if err := this.ShouldBind(&service); err == nil {
+			res :=  service.List()
+			this.JSON(200, res)
+			fmt.Println(res,"=====res======")
+		} else {
+			this.JSON(200, ErrorResponse(err))
+		}
+	}()
 
 }
 

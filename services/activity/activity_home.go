@@ -6,10 +6,10 @@ import (
 	"QUZHIYOU/serializer"
 )
 
-// ListActivityService 首页列表服务 需要传递page size参数
+// ListActivityService 首页列表服务 需要传递page size参数binding:"required"
 type ListActivityService struct {
-	Page int `form:"page" json:"page" binding:"required"`
-	Size int `form:"size" json:"size" binding:"required"`
+	Page int `form:"page" json:"page" `
+	Size int `form:"size" json:"size" `
 }
 
 // List 活动列表

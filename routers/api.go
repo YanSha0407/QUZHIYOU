@@ -16,7 +16,7 @@ func InitRouter() *gin.Engine {
 		//v1.Use(middleware.JWTAuth())
 		//v1.Use(middleware.WXToken())
 		//首页活动列表
-		v1.GET("/wechat/activity/selectActivityList", api.ActivityList)
+		v1.GET("/wechat/activity/selectActivityList",  api.ActivityList)
 		//活动详情信息
 		v1.GET("/wechat/activity/selectActivicyInfoById", api.ActivityInfo)
 		//微信登录
