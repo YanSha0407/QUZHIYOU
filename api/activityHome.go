@@ -48,4 +48,17 @@ func ActivityInfo(this *gin.Context) {
 
 
 
+func ActivityList1(this *gin.Context) {
+	service := activity.ListActivityService{}
+
+	if err := this.ShouldBind(&service); err == nil {
+		res :=  service.List()
+		this.JSON(200, res)
+		fmt.Println(res,"=====res======")
+	} else {
+		this.JSON(200, ErrorResponse(err))
+	}
+
+}
+
 
