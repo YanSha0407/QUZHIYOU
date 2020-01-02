@@ -37,7 +37,7 @@ func Initialized() {
 	DB.SingularTable(true)
 
 	DB.DB().SetMaxIdleConns(10)
-	DB.DB().SetMaxOpenConns(5000)
+	DB.DB().SetMaxOpenConns(20000)
 	// debug 模式开启sql日志
 	DB.LogMode(true)
 }

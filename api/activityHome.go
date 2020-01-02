@@ -2,29 +2,34 @@ package api
 
 import (
 	"QUZHIYOU/services/activity"
-	"fmt"
 	"github.com/gin-gonic/gin"
-	"time"
 )
 
 //获取首页列表
 
-func ActivityList(that *gin.Context) {
 
-	this:=that.Copy()
+func ActivityList(this *gin.Context) {
 
-	go func() {
-		time.Sleep(20*time.Second)
-		service := activity.ListActivityService{}
+	resch:=make(chan interface{},10)
 
-		if err := this.ShouldBind(&service); err == nil {
+
+	service := activity.ListActivityService{}
+
+	if err := this.ShouldBind(&service); err == nil {
+
+		go func() {
 			res :=  service.List()
-			this.JSON(200, res)
-			fmt.Println(res,"=====res======")
-		} else {
-			this.JSON(200, ErrorResponse(err))
-		}
-	}()
+			resch<-res
+			close(resch)
+		}()
+
+		this.JSON(200,<-resch )
+
+
+	} else {
+		this.JSON(200, ErrorResponse(err))
+	}
+
 
 }
 
@@ -54,7 +59,6 @@ func ActivityList1(this *gin.Context) {
 	if err := this.ShouldBind(&service); err == nil {
 		res :=  service.List()
 		this.JSON(200, res)
-		fmt.Println(res,"=====res======")
 	} else {
 		this.JSON(200, ErrorResponse(err))
 	}
