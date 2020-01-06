@@ -8,7 +8,7 @@ import (
 //获取首页列表
 
 
-func ActivityList(this *gin.Context) {
+func ActivityList2(this *gin.Context) {
 
 	resch:=make(chan interface{},10)
 
@@ -53,7 +53,7 @@ func ActivityInfo(this *gin.Context) {
 
 
 
-func ActivityList1(this *gin.Context) {
+func ActivityList(this *gin.Context) {
 	service := activity.ListActivityService{}
 
 	if err := this.ShouldBind(&service); err == nil {
