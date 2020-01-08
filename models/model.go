@@ -10,16 +10,28 @@ import (
 	"os"
 )
 
+type SalEmp struct {
+	Name string
+	PayByQuarter int
+	Schedule string
+
+}
+
 func init() {
 	db, _ := gorm.Open("postgres", "host=localhost user=postgres dbname=BBS sslmode=disable password=loveys1314")
 	fmt.Println(db,"--Acc----")
 	db.SingularTable(true)
 	//db.AutoMigrate(&Diary{})
 
-	var   diary Diary
+	//var   diary Diary
+	//
+	//db.First(&diary)
+	//fmt.Println(diary.Photos,"-----attay------")
+
+	var   diary SalEmp
 
 	db.First(&diary)
-	fmt.Println(diary)
+	fmt.Println(diary.PayByQuarter,"-----attay------")
 
 	defer db.Close()
 }
