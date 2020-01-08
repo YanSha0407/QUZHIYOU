@@ -13,11 +13,7 @@ type ActivityInfo struct {
 	ActivityId string `form:"activityId" json:"activityId"`
 }
 
-
-
 func (activityInfo *ActivityInfo) GetActivityInfo() serializer.Response {
-
-
 
 	actiInfo := models.TbActivity{
 		ActivityId: utils.String2Int64(activityInfo.ActivityId),
@@ -25,11 +21,9 @@ func (activityInfo *ActivityInfo) GetActivityInfo() serializer.Response {
 
 	var banners []*models.TbBanner
 
+	models.DB.Find(&banners, "ACTIVITY_ID=?", utils.String2Int64(activityInfo.ActivityId))
 
-	models.DB.Find(&banners,"ACTIVITY_ID=?",utils.String2Int64(activityInfo.ActivityId))
-
-
-	err :=models.DB.
+	err := models.DB.
 		Debug().
 		Preload("Welfares").
 		Preload("AddressFrom").
@@ -39,13 +33,12 @@ func (activityInfo *ActivityInfo) GetActivityInfo() serializer.Response {
 		Error
 	if err != nil {
 		return serializer.Response{
-			Code: 404,
-			Msg:    "活动不存在",
-			Error:  err.Error(),
+			Code:  404,
+			Msg:   "活动不存在",
+			Error: err.Error(),
 		}
 	}
 
-
-	return serializer.ActivityInfoResponse(actiInfo,&banners)
+	return serializer.ActivityInfoResponse(actiInfo, &banners)
 
 }

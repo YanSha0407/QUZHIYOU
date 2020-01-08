@@ -2,25 +2,24 @@ package serializer
 
 import (
 	"QUZHIYOU/models"
-	"time"
 )
 
 //社区动态 序列化
 type Diary struct {
-	ID uint   `json:"id"`
-	Name string `json:"name"`
-	Content string `json:"content"`
-	Like int `json:"like"`
-	IsLike int `json:"is_like"`
-	View int `json:"view"`
-	Auth string `json:"auth"`
-	CommentNum int `json:"comment_num"`
-	Address string `json:"address"`
-	Community string `json:"community"`
-	Time time.Time `json:"time"`
+	ID         uint   `json:"id"`
+	Name       string `json:"name"`
+	Content    string `json:"content"`
+	Like       int    `json:"like"`
+	IsLike     int    `json:"is_like"`
+	View       int    `json:"view"`
+	Auth       string `json:"auth"`
+	CommentNum int    `json:"comment_num"`
+	Address    string `json:"address"`
+	Community  string `json:"community"`
+	Time       string `json:"time"`
 }
 
-func BuildDiary(item models.Diary) Diary  {
+func BuildDiary(item models.Diary) Diary {
 	return Diary{
 		ID:         item.ID,
 		Name:       item.Name,
@@ -32,18 +31,16 @@ func BuildDiary(item models.Diary) Diary  {
 		CommentNum: item.CommentNum,
 		Address:    item.Address,
 		Community:  item.Community,
-		Time:       item.Time,
+		Time:       item.FormatTime(),
 	}
 
 }
 
+func BuildDiarys(items []*models.Diary) (diarys []*Diary) {
 
-func BuildDiarys(items []*models.Diary) (diarys []*Diary)  {
-
-
-	for _,item:=range items{
-		diary:=BuildDiary(*item)
-		diarys=append(diarys,&diary)
+	for _, item := range items {
+		diary := BuildDiary(*item)
+		diarys = append(diarys, &diary)
 	}
 
 	return

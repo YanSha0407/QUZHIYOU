@@ -8,7 +8,6 @@ import (
 type HomeClassify struct {
 }
 
-
 func (classify *HomeClassify) GetClassify() serializer.Response {
 
 	var classifys []*models.Classify
@@ -23,5 +22,3 @@ func (classify *HomeClassify) GetClassify() serializer.Response {
 	}
 
 }
-
-

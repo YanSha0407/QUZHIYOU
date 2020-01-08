@@ -6,17 +6,16 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-func WxLogin(c *gin.Context)  {
+func WxLogin(c *gin.Context) {
 
-	code:=wxLogin.User{}
+	code := wxLogin.User{}
 
-	if err:=c.ShouldBind(&code);err!=nil{
+	if err := c.ShouldBind(&code); err != nil {
 		fmt.Println("code 失败")
 	}
 
-	res:=code.WxUserLogin()
+	res := code.WxUserLogin()
 
-
-	c.JSON(200,&res)
+	c.JSON(200, &res)
 
 }

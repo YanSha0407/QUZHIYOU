@@ -9,12 +9,11 @@ import (
 
 func init() {
 	godotenv.Load()
-
 	models.Initialized()
-
 }
 
 func main() {
+
 	gin.SetMode(gin.DebugMode)
 	defer models.CloseDb()
 	router := routers.InitRouter()

@@ -1,9 +1,9 @@
 package utils
 
 import (
+	"github.com/astaxie/beego/orm"
 	"strconv"
 	"time"
-	"github.com/astaxie/beego/orm"
 )
 
 func String2Int(val string) int {
@@ -17,7 +17,7 @@ func String2Int(val string) int {
 }
 
 func String2Int64(val string) int64 {
-	i,_:=strconv.ParseInt(val, 10, 64)
+	i, _ := strconv.ParseInt(val, 10, 64)
 
 	return i
 }

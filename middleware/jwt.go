@@ -1,13 +1,15 @@
 package middleware
+
 import (
 	"errors"
 	"fmt"
+	"github.com/dgrijalva/jwt-go"
 	"github.com/gin-gonic/gin"
 	"net/http"
 	"strings"
 	"time"
-	"github.com/dgrijalva/jwt-go"
 )
+
 func JWTAuth() gin.HandlerFunc {
 	return func(c *gin.Context) {
 		token := c.DefaultQuery("token", "")
@@ -19,7 +21,7 @@ func JWTAuth() gin.HandlerFunc {
 		}
 		j := NewJWT()
 		claims, err := j.ParseToken(token)
-		fmt.Println(claims,"------clams-----")
+		fmt.Println(claims, "------clams-----")
 		if err != nil {
 			if err == TokenExpired {
 				if token, err = j.RefreshToken(token); err == nil {
@@ -45,20 +47,19 @@ type JWT struct {
 }
 
 var (
-	TokenExpired error = errors.New("Token is expired")
-	TokenNotValidYet error = errors.New("Token not active yet")
-	TokenMalformed error = errors.New("That's not even a token")
-	TokenInvalid error = errors.New("Couldn't handle this token:")
-	SignKey string = "admin"
+	TokenExpired     error  = errors.New("Token is expired")
+	TokenNotValidYet error  = errors.New("Token not active yet")
+	TokenMalformed   error  = errors.New("That's not even a token")
+	TokenInvalid     error  = errors.New("Couldn't handle this token:")
+	SignKey          string = "admin"
 )
 
 type CustomClaims struct {
-	ID int `json:"id"`
-	Name string `json:"name"`
+	ID    int    `json:"id"`
+	Name  string `json:"name"`
 	Email string `json:"email"`
 	jwt.StandardClaims
 }
-
 
 func NewJWT() *JWT {
 	return &JWT{
@@ -66,18 +67,14 @@ func NewJWT() *JWT {
 	}
 }
 
-
 func GetSignKey() string {
 	return SignKey
 }
-
 
 func SetSignKey(key string) string {
 	SignKey = key
 	return SignKey
 }
-
-
 
 func (j *JWT) CreateToken(claims CustomClaims) (string, error) {
 	token := jwt.NewWithClaims(jwt.SigningMethodHS256, claims)
@@ -107,9 +104,6 @@ func (j *JWT) ParseToken(tokenString string) (*CustomClaims, error) {
 	}
 	return nil, TokenInvalid
 }
-
-
-
 
 func (j *JWT) RefreshToken(tokenString string) (string, error) {
 	jwt.TimeFunc = func() time.Time {

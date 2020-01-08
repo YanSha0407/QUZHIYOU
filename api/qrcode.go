@@ -10,9 +10,8 @@ import (
 
 var (
 	token string
-	dir string
+	dir   string
 )
-
 
 func Getqrcode(c *gin.Context) {
 
@@ -20,7 +19,6 @@ func Getqrcode(c *gin.Context) {
 	dir, _ = filepath.Abs(filepath.Dir(os.Args[0]))
 
 	token, _ := weapp.GetAccessToken(os.Getenv("WXAPP_ID"), os.Getenv("WXSECRET"))
-
 
 	getter := weapp.UnlimitedQRCode{
 		Scene:     "id=1",
@@ -43,22 +41,18 @@ func Getqrcode(c *gin.Context) {
 
 	content, err := ioutil.ReadAll(resp.Body)
 
-	f,_:=os.Create(dir+"/static/"+"code.png")
+	f, _ := os.Create(dir + "/static/" + "code.png")
 
 	defer f.Close()
 
 	f.Write(content)
 
-
 	//上传图片到服务器 -no
 
-
-	c.JSON(200,gin.H{
-		"code":0,
-		"msg":"生成成功",
-		"data":dir+"/static/"+"code.png",
+	c.JSON(200, gin.H{
+		"code": 0,
+		"msg":  "生成成功",
+		"data": dir + "/static/" + "code.png",
 	})
-
-
 
 }

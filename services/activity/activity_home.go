@@ -1,6 +1,5 @@
 package activity
 
-
 import (
 	"QUZHIYOU/models"
 	"QUZHIYOU/serializer"
@@ -14,7 +13,6 @@ type ListActivityService struct {
 
 // List 活动列表
 func (service *ListActivityService) List() serializer.Response {
-
 
 	activitys := []models.TbActivity{}
 
@@ -31,18 +29,18 @@ func (service *ListActivityService) List() serializer.Response {
 
 	if err := models.DB.Model(models.TbActivity{}).Count(&total).Error; err != nil {
 		return serializer.Response{
-			Code: 50000,
-			Msg:    "数据库连接错误",
-			Error:  err.Error(),
+			Code:  50000,
+			Msg:   "数据库连接错误",
+			Error: err.Error(),
 		}
 	}
 
-	showRows:=[]string{"ACTIVITY_ID","ACTIVITY_NAME","SUB_NAME","IMAGE","ORIGINAL_PRICE","TOTAL_NUM","PRICE_TAG","PRICE","STATUS","TAGS",}
+	showRows := []string{"ACTIVITY_ID", "ACTIVITY_NAME", "SUB_NAME", "IMAGE", "ORIGINAL_PRICE", "TOTAL_NUM", "PRICE_TAG", "PRICE", "STATUS", "TAGS"}
 	if err := models.DB.Select(showRows).Limit(service.Size).Offset(start).Find(&activitys).Error; err != nil {
 		return serializer.Response{
-			Code: 50000,
-			Msg:    "数据库连接错误",
-			Error:  err.Error(),
+			Code:  50000,
+			Msg:   "数据库连接错误",
+			Error: err.Error(),
 		}
 	}
 

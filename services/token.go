@@ -1,12 +1,11 @@
 package services
 
 import (
+	"QUZHIYOU/utils"
 	"fmt"
 	"github.com/astaxie/beego/context"
 	"strings"
-	"QUZHIYOU/utils"
 )
-
 
 func getControllerAndAction(rawvalue string) (controller, action string) {
 	vals := strings.Split(rawvalue, "/")
@@ -21,22 +20,15 @@ func FilterFunc(ctx *context.Context) {
 	fmt.Println(controller, action)
 	fmt.Println("-----E----")
 
-
 	token := ctx.Input.Header("userId")
 
 	fmt.Println(token)
 
-
-	if token ==""{
+	if token == "" {
 		data := utils.GetHTTPRtnJsonData(401, "请重新登录 缺少token")
 		ctx.Output.JSON(data, true, false)
 		ctx.Redirect(200, "/")
 		return
 	}
-
-
-
-
-
 
 }

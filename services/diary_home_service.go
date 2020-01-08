@@ -15,7 +15,6 @@ func (this *DiaryHomeService) GetAllDiary() []*serializer.Diary {
 	page := this.Page
 	size := this.Size
 
-
 	start := (page - 1) * size
 
 	var diary []*models.Diary

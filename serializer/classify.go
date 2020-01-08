@@ -3,14 +3,13 @@ package serializer
 import "QUZHIYOU/models"
 
 type Classify struct {
-	ID int64 `gorm:"primary_key" json:"id"`
+	ID   int64  `gorm:"primary_key" json:"id"`
 	Name string `json:"name"`
 	Icon string `json:"icon"`
 }
 
-
 //单行序列化
-func BuildClassify(item models.Classify) *Classify {
+func BuildClassify(item *models.Classify) *Classify {
 
 	return &Classify{
 		ID:   item.ID,
@@ -19,12 +18,11 @@ func BuildClassify(item models.Classify) *Classify {
 	}
 }
 
-
 //多行序列化
 func BuildClassifys(item []*models.Classify) (classify []*Classify) {
 
-	for _,v:=range item{
-		classify = append(classify, BuildClassify(*v))
+	for _, v := range item {
+		classify = append(classify, BuildClassify(v))
 	}
 	return
 

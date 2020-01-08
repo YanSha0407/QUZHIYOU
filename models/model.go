@@ -12,7 +12,6 @@ import (
 var DB *gorm.DB
 var Client *redis.Client
 
-
 // 初始化数据库连接等
 func Initialized() {
 	// 申明变量
@@ -22,7 +21,7 @@ func Initialized() {
 	// 连接数据库
 	DB, err = gorm.Open("mysql", os.Getenv("MYSQL_DSN"))
 	if err != nil {
-		log.Fatalf("database connection error: %v", err);
+		log.Fatalf("database connection error: %v", err)
 		return
 	}
 
@@ -31,11 +30,10 @@ func Initialized() {
 		Password: "",
 		DB:       0,
 	})
-	fmt.Println(Client,"------")
-
+	fmt.Println(Client, "------")
 
 	DB.SingularTable(true)
-	DB.AutoMigrate(&Classify{},&Diary{})
+	DB.AutoMigrate(&Classify{}, &Diary{})
 
 	DB.DB().SetMaxIdleConns(10)
 	DB.DB().SetMaxOpenConns(20000)

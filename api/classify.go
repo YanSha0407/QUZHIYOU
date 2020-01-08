@@ -5,8 +5,8 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-func Classify(c *gin.Context)  {
+func Classify(c *gin.Context) {
 	var classify home.HomeClassify
-	res:=classify.GetClassify()
-	c.JSON(200,&res)
+	res := classify.GetClassify()
+	c.JSON(200, &res)
 }

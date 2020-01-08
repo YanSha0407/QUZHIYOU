@@ -6,17 +6,17 @@ import (
 )
 
 type HTTPData struct {
-	Code  int         `json:"code"`
+	Code    int         `json:"code"`
 	Message string      `json:"message"`
-	Data   interface{} `json:"data"`
+	Data    interface{} `json:"data"`
 }
 
 func ReturnHTTPSuccess(this *beego.Controller, val interface{}) {
 
 	rtndata := HTTPData{
-		Code:  200,
+		Code:    200,
 		Message: "",
-		Data:   val,
+		Data:    val,
 	}
 
 	data, err := json.Marshal(rtndata)
@@ -30,9 +30,9 @@ func ReturnHTTPSuccess(this *beego.Controller, val interface{}) {
 func GetHTTPRtnJsonData(errno int, errmsg string) interface{} {
 
 	rtndata := HTTPData{
-		Code:  errno,
+		Code:    errno,
 		Message: errmsg,
-		Data:   nil,
+		Data:    nil,
 	}
 	data, _ := json.Marshal(rtndata)
 
