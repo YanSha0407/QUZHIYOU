@@ -20,6 +20,7 @@ type Diary struct {
 	Address    string
 	Community  string
 	Time       time.Time
+	Photos     int
 }
 
 var timeLayoutStr = "2006-01-02 15:04:05"

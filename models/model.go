@@ -1,12 +1,29 @@
 package models
 
 import (
+	"fmt"
 	"github.com/go-redis/redis"
 	_ "github.com/go-sql-driver/mysql"
+   _ "github.com/jinzhu/gorm/dialects/postgres"
 	"github.com/jinzhu/gorm"
 	"log"
 	"os"
 )
+
+func init() {
+	db, _ := gorm.Open("postgres", "host=localhost user=postgres dbname=BBS sslmode=disable password=loveys1314")
+	fmt.Println(db,"--Acc----")
+	db.SingularTable(true)
+	//db.AutoMigrate(&Diary{})
+
+	var   diary Diary
+
+	db.First(&diary)
+	fmt.Println(diary)
+
+	defer db.Close()
+}
+
 
 var DB *gorm.DB
 var Client *redis.Client
@@ -31,7 +48,7 @@ func Initialized() {
 	})
 
 	DB.SingularTable(true)
-	DB.AutoMigrate(&Classify{}, &Diary{})
+	//DB.AutoMigrate(&Classify{}, &Diary{})
 
 
 	DB.DB().SetMaxIdleConns(10)
