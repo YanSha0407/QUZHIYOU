@@ -1,19 +1,17 @@
 package models
 
 import (
-	"fmt"
 	"github.com/go-redis/redis"
 	_ "github.com/go-sql-driver/mysql"
-   _ "github.com/jinzhu/gorm/dialects/postgres"
 	"github.com/jinzhu/gorm"
+	_ "github.com/jinzhu/gorm/dialects/postgres"
 	"log"
 	"os"
 )
 
 type SalEmp struct {
 	Name string
-	PayByQuarter int
-	Schedule string
+	PayByQuarter []int
 
 }
 
