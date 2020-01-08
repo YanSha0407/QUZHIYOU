@@ -2,6 +2,7 @@ package models
 
 import (
 	"github.com/jinzhu/gorm"
+	"github.com/lib/pq"
 	"time"
 )
 
@@ -20,7 +21,7 @@ type Diary struct {
 	Address    string
 	Community  string
 	Time       time.Time
-	Photos     int `gorm:"int:4"`
+	Photos      pq.StringArray `gorm:"type:varchar(100)[]"`
 }
 
 var timeLayoutStr = "2006-01-02 15:04:05"
