@@ -1,7 +1,6 @@
 package models
 
 import (
-	"fmt"
 	"github.com/go-redis/redis"
 	_ "github.com/go-sql-driver/mysql"
 	"github.com/jinzhu/gorm"
@@ -30,7 +29,6 @@ func Initialized() {
 		Password: "",
 		DB:       0,
 	})
-	fmt.Println(Client, "------")
 
 	DB.SingularTable(true)
 	DB.AutoMigrate(&Classify{}, &Diary{})
