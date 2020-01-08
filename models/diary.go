@@ -9,6 +9,7 @@ import (
 
 type Diary struct {
 	gorm.Model
+	Avatar string
 	Name       string
 	Content    string
 	Like       int
