@@ -21,13 +21,11 @@ func BuildClassify(item models.Classify) *Classify {
 
 
 //多行序列化
-func BuildClassifys(item []models.Classify) (classify []*Classify) {
-
+func BuildClassifys(item []*models.Classify) (classify []*Classify) {
 
 	for _,v:=range item{
-		classify = append(classify, BuildClassify(v))
+		classify = append(classify, BuildClassify(*v))
 	}
-
 	return
 
 }

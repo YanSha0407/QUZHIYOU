@@ -11,7 +11,7 @@ type HomeClassify struct {
 
 func (classify *HomeClassify) GetClassify() serializer.Response {
 
-	var classifys []models.Classify
+	var classifys []*models.Classify
 
 	models.DB.Find(&classifys)
 
