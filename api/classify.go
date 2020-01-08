@@ -8,5 +8,5 @@ import (
 func Classify(c *gin.Context) {
 	var classify home.HomeClassify
 	res := classify.GetClassify()
-	c.JSON(200, &res)
+	c.IndentedJSON(200, &res)
 }
