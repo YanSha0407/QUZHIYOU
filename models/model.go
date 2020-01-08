@@ -1,17 +1,21 @@
 package models
 
 import (
+	"fmt"
 	"github.com/go-redis/redis"
 	_ "github.com/go-sql-driver/mysql"
 	"github.com/jinzhu/gorm"
 	_ "github.com/jinzhu/gorm/dialects/postgres"
+	"github.com/lib/pq"
 	"log"
 	"os"
 )
 
 type SalEmp struct {
+	Id int `gorm:"primary_key"`
 	Name string
-	PayByQuarter []int
+	Quarter pq.StringArray `gorm:"type:varchar(100)[]"`
+	Pic pq.StringArray `gorm:"type:varchar(100)[]"`
 
 }
 
@@ -19,17 +23,16 @@ func init() {
 	db, _ := gorm.Open("postgres", "host=localhost user=postgres dbname=BBS sslmode=disable password=loveys1314")
 	fmt.Println(db,"--Acc----")
 	db.SingularTable(true)
-	//db.AutoMigrate(&Diary{})
+	db.AutoMigrate(&SalEmp{})
 
 	//var   diary Diary
 	//
 	//db.First(&diary)
 	//fmt.Println(diary.Photos,"-----attay------")
-
 	var   diary SalEmp
 
 	db.First(&diary)
-	fmt.Println(diary.PayByQuarter,"-----attay------")
+	fmt.Println(diary.Pic[0],"-----attay------")
 
 	defer db.Close()
 }

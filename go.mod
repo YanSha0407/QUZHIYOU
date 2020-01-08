@@ -11,6 +11,7 @@ require (
 	github.com/jinzhu/gorm v1.9.11
 	github.com/joho/godotenv v1.3.0
 	github.com/kr/pretty v0.1.0 // indirect
+	github.com/lib/pq v1.3.0
 	github.com/medivhzhan/weapp/v2 v2.0.1
 	github.com/onsi/ginkgo v1.10.2 // indirect
 	github.com/onsi/gomega v1.7.0 // indirect
