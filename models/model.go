@@ -3,9 +3,9 @@ package models
 import (
 	"fmt"
 	"github.com/go-redis/redis"
+	_ "github.com/go-sql-driver/mysql"
 	"github.com/jinzhu/gorm"
 	"log"
-	_ "github.com/go-sql-driver/mysql"
 	"os"
 )
 
@@ -35,6 +35,7 @@ func Initialized() {
 
 
 	DB.SingularTable(true)
+	DB.AutoMigrate(&Classify{},&Diary{})
 
 	DB.DB().SetMaxIdleConns(10)
 	DB.DB().SetMaxOpenConns(20000)
