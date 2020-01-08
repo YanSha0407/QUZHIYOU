@@ -58,7 +58,7 @@ func ActivityList(this *gin.Context) {
 
 	if err := this.ShouldBind(&service); err == nil {
 		res :=  service.List()
-		this.JSON(200, res)
+		this.IndentedJSON(200, res)
 	} else {
 		this.JSON(200, ErrorResponse(err))
 	}

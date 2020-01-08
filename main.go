@@ -15,7 +15,7 @@ func init() {
 }
 
 func main() {
-	gin.SetMode(gin.ReleaseMode)
+	gin.SetMode(gin.DebugMode)
 	defer models.CloseDb()
 	router := routers.InitRouter()
 	router.Run(":8080")
