@@ -2,20 +2,19 @@ package api
 
 import (
 	"QUZHIYOU/services/wxLogin"
-	"fmt"
 	"github.com/gin-gonic/gin"
 )
 
 func WxLogin(c *gin.Context) {
 
-	code := wxLogin.User{}
+	code := wxLogin.UserService{}
 
-	if err := c.ShouldBind(&code); err != nil {
-		fmt.Println("code 失败")
+	if err := c.ShouldBind(&code); err == nil {
+		res := code.WxUserLogin()
+		c.JSON(200, &res)
+	}else {
+		c.JSON(200, ErrorResponse(err))
 	}
 
-	res := code.WxUserLogin()
-
-	c.JSON(200, &res)
 
 }

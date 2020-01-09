@@ -2,10 +2,10 @@ package serializer
 
 import "QUZHIYOU/models"
 
-type TbUser struct {
-	UserId int64 `  json:"userId" `
+type User struct {
+	Id uint `  json:"id" `
 }
 
-func BuildUser(user models.TbUser) *TbUser {
-	return &TbUser{UserId: user.UserId}
+func BuildUser(user *models.User) *User {
+	return &User{Id: user.ID}
 }

@@ -7,13 +7,13 @@ import (
 	"os"
 )
 
-type User struct {
+type UserService struct {
 	Code string `form:"code" json:"code"`
 }
 
-func (u *User) WxUserLogin() serializer.Response {
+func (u *UserService) WxUserLogin() serializer.Response {
 
-	var user models.TbUser
+	var user models.User
 
 	//	获取code 查询数据库 没有需创建用户
 
@@ -39,26 +39,16 @@ func (u *User) WxUserLogin() serializer.Response {
 		}
 	}
 
-	isHave := models.DB.Model(&user).Where("OPEN_ID=?", res.OpenID).First(&user).RecordNotFound()
 
-	if isHave {
-		//获取token
-		token, _ := weapp.GetAccessToken(os.Getenv("WXAPP_ID"), os.Getenv("WXSECRET"))
+	user= models.User{OpenId: res.OpenID}
 
-		//	创建用户
-		oneUser := models.TbUser{OpenId: res.OpenID, SessionKey: res.SessionKey, AccessToken: token.AccessToken}
+	models.PG.Create(&user)
 
-		models.DB.Save(&oneUser)
 
-		return serializer.Response{
-			Msg:   "创建用户",
-			Error: "",
-			Data:  serializer.BuildUser(oneUser),
-		}
-	} else {
-		return serializer.Response{
-			Data: serializer.BuildUser(user),
-		}
+	return serializer.Response{
+		Code:0,
+		Msg:   "",
+		Error: "",
+		Data:  serializer.BuildUser(&user),
 	}
-
 }

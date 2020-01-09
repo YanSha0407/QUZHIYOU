@@ -1,12 +1,17 @@
 package models
 
+import "github.com/jinzhu/gorm"
+
 //用户
-type TbUser struct {
-	UserId      int64  ` gorm:"primary_key;column:USER_ID" json:"userId" `
-	OpenId      string ` gorm:"column:OPEN_ID" json:"openId" `
-	SessionKey  string `  gorm:"column:SESSION_KEY" json:"sessionKey"`
-	UnionId     string `  gorm:"column:UNION_ID" json:"unionId"`
-	UserName    string `  gorm:"column:USER_NAME" json:"userName"`
-	UserFrom    string `  gorm:"column:USER_FROM" json:"userFrom"`
-	AccessToken string `  gorm:"column:ACCESS_TOKEN" json:"accessToken"`
+type User struct {
+	gorm.Model
+	OpenId      string
+	SessionKey  string
+	UnionId     string
+	UserName    string
+	UserFrom    string
+	AccessToken string
+	Auth        string //职业认证
+	Specialist  bool   //是否认证
+
 }
