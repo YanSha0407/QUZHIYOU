@@ -42,6 +42,7 @@ func (u *UserService) WxUserLogin() serializer.Response {
 
 	user= models.User{OpenId: res.OpenID}
 
+
 	models.PG.Create(&user)
 
 

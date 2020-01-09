@@ -3,7 +3,7 @@ package serializer
 import "QUZHIYOU/models"
 
 type User struct {
-	Id uint `  json:"id" `
+	Id uint `  json:"userId" `
 }
 
 func BuildUser(user *models.User) *User {
