@@ -12,7 +12,8 @@ func (classify *HomeClassify) GetClassify() serializer.Response {
 
 	var classifys []*models.Classify
 
-	models.DB.Find(&classifys)
+	models.PG.Find(&classifys)
+
 
 	return serializer.Response{
 		Code:  0,

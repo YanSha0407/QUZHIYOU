@@ -30,6 +30,7 @@ func InitRouter() *gin.Engine {
 		{
 			home.GET("/homediarys", api.HomeList)
 			home.GET("/classify", api.Classify)
+			home.GET("/ad", api.GetAd)
 		}
 
 	}

@@ -25,7 +25,7 @@ func (service *ListDiaryService) GetDiarys() serializer.Response {
 
 	start := (service.Page - 1) * service.Size
 
-	if err := models.DB.Model(models.Diary{}).Count(&total).Error; err != nil {
+	if err := models.PG.Model(models.Diary{}).Count(&total).Error; err != nil {
 		return serializer.Response{
 			Code:  50000,
 			Msg:   "数据库连接错误",
@@ -33,7 +33,7 @@ func (service *ListDiaryService) GetDiarys() serializer.Response {
 		}
 	}
 
-	if err := models.DB.Limit(service.Size).Offset(start).Find(&diarys).Error; err != nil {
+	if err := models.PG.Limit(service.Size).Offset(start).Find(&diarys).Error; err != nil {
 		return serializer.Response{
 			Code:  50000,
 			Msg:   "数据库连接错误",

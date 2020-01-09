@@ -19,15 +19,14 @@ func init() {
 	PG, err = gorm.Open("postgres", "host=localhost user=postgres dbname=BBS sslmode=disable password=loveys1314")
 	fmt.Println(PG,err,"--Acc----")
 	PG.SingularTable(true)
-	//db.AutoMigrate(&Diary{},&Classify{})
 
-	//var   diary Diary
-	//
-	//db.First(&diary)
-	//fmt.Println(diary.Photos,"-----attay------")
+	PG.DB().SetMaxIdleConns(10)
+	PG.DB().SetMaxOpenConns(20000)
+	// debug 模式开启sql日志
+	PG.LogMode(true)
+	//PG.AutoMigrate(&Ad{})
 
-
-	defer PG.Close()
+	//defer PG.Close()
 }
 
 
@@ -54,7 +53,7 @@ func Initialized() {
 	})
 
 	DB.SingularTable(true)
-	//DB.AutoMigrate(&Classify{}, &Diary{})
+	//DB.AutoMigrate(&TbActivity{})
 
 
 	DB.DB().SetMaxIdleConns(10)
