@@ -13,7 +13,7 @@ func (ad *AdService)GetAds() serializer.Response {
 
 	var ads []*models.Ad
 
-	models.PG.Find(&ads)
+	models.PG.Where("is_shelves=?",true).Find(&ads)
 
 
 	return serializer.Response{
