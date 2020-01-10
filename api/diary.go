@@ -11,7 +11,7 @@ func HomeList(c *gin.Context) {
 
 	if err := c.ShouldBind(&paramsHome); err == nil {
 		res := paramsHome.GetDiarys()
-		c.IndentedJSON(200, res)
+		c.JSON(200, res)
 	} else {
 		c.JSON(200, ErrorResponse(err))
 	}
