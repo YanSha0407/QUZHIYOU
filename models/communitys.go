@@ -4,8 +4,11 @@ import "github.com/jinzhu/gorm"
 
 type Communitys struct {
 	gorm.Model
-	Name string
+	Name    string
 	KeyWord string
-	Letter string
-	IsOpen bool
+	Letter  string
+	IsOpen  bool
 }
+
+
+
