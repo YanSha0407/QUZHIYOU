@@ -30,7 +30,7 @@ type Diary struct {
 
 }
 
-var timeLayoutStr = "2006-01-02 15:04:05"
+var timeLayoutStr = "2006/01/02 15:04"
 
 func (Diary *Diary) FormatTime() string {
 	ts := Diary.Time.Format(timeLayoutStr) //time转string
