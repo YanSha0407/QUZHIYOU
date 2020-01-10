@@ -14,6 +14,7 @@ type AddDiaryService struct {
 	Photos []string `form:"photos" json:"photos"`
 	Tag string `form:"tag" json:"tag"`
 	PhotosThumb []string `form:"photosthumb" json:"photosthumb"`
+	CommunityId uint `form:"communityId" json:"communityId" `
 }
 
 func (diary *AddDiaryService) AddDiary() serializer.Response {
@@ -27,6 +28,7 @@ func (diary *AddDiaryService) AddDiary() serializer.Response {
 		Photos:diary.Photos,
 		PhotosThumb:diary.Photos,
 		Tag:diary.Tag,
+		CommunityId:diary.CommunityId,
 	}
 
 	models.PG.Create(&dia)
