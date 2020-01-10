@@ -2,7 +2,6 @@ package serializer
 
 import (
 	"QUZHIYOU/models"
-	"fmt"
 )
 
 //序列化1
@@ -13,13 +12,13 @@ type Community struct {
 	Letter  string `json:"letter"`
 }
 
-//返回结果序列化
+//返回结果序列化2
 type ResComs struct {
-	Letter string `json:"letter"`
+	Letter string      `json:"letter"`
 	Data   []Community `json:"data"`
 }
 
-
+//返回结果序列化3
 type ListRes struct {
 	List []ResComs `json:"list"`
 }
@@ -35,38 +34,25 @@ func BuildCommunity(item models.Communitys) Community {
 
 func BuildCommunitys(item []models.Communitys) (list ListRes) {
 
-	var vs []Community
-	var vs1 []Community
 
-	var rs ResComs
-	var rs1 ResComs
 
-	 li:= ListRes{}
+	var res ResComs
+	var res1 ResComs
 
-	for _, v := range item {
-		if v.Letter == "Y" {
-			rs.Letter = "Y"
-			vs = append(vs, BuildCommunity(v))
+	for _, v2 := range item {
+
+		if v2.Letter=="A"{
+			res.Data = append(res.Data, BuildCommunity(v2))
+			res.Letter = v2.Letter
+		}
+		if v2.Letter=="B"{
+			res1.Data = append(res1.Data, BuildCommunity(v2))
+			res1.Letter = v2.Letter
 		}
 
-		if v.Letter == "W" {
-			rs1.Letter = "W"
-			vs1 = append(vs1, BuildCommunity(v))
-		}
 	}
 
-	rs.Data = vs
-	rs1.Data = vs1
-
-	fmt.Println(vs, "----vs--")
-	fmt.Println(rs, "----rs--")
-
-	li.List = append(li.List, rs,rs1)
-
-
-	list=li
-
-
+	list.List = append(list.List, res,res1)
 
 	return
 

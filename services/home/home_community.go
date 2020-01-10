@@ -17,10 +17,10 @@ func (service *HomeCommunityService)GetCommunity() serializer.Response {
 
 	models.PG.Find(&communitys)
 
-	list2:=serializer.BuildCommunitys(communitys)
+	l1:=serializer.BuildCommunitys(communitys)
 	return serializer.Response{
 		Code:  0,
-		Data: list2  ,
+		Data: l1,
 		Msg:   "",
 		Error: "",
 	}
