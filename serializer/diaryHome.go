@@ -16,13 +16,13 @@ type Diary struct {
 	CommentNum  int            `json:"comment"`
 	Address     string         `json:"address"`
 	Community   string         `json:"community"`
-	Time        string         `json:"timer"`
 	Photos      []map[string]interface{} `json:"image_url_came"`
 	PhotosThumb []map[string]interface{} `json:"image_url_came_thumb"`
 	Tag         string         `json:"tag"`
 	Status string `json:"status"`
 	Specialist bool `json:"specialist"`
 	Avatar string `json:"avatar"`
+	CreatedAt   string `json:"timer"`
 }
 
 func BuildDiary(item models.Diary) Diary {
@@ -37,13 +37,13 @@ func BuildDiary(item models.Diary) Diary {
 		CommentNum:  item.CommentNum,
 		Address:     item.Address,
 		Community:   item.Community,
-		Time:        item.FormatTime(),
 		Photos:      item.FormatPhotos(item.Photos),
 		PhotosThumb: item.FormatPhotos(item.PhotosThumb),
 		Tag:         item.Tag,
 		Status:         item.Status,
 		Specialist:item.Specialist,
 		Avatar:item.Avatar,
+		CreatedAt:item.FormatCretaeTime(),
 	}
 
 }

@@ -33,7 +33,7 @@ func (service *ListDiaryService) GetDiarys() serializer.Response {
 		}
 	}
 
-	if err := models.PG.Limit(service.Size).Offset(start).Find(&diarys).Error; err != nil {
+	if err := models.PG.Order("id desc").Limit(service.Size).Offset(start).Find(&diarys).Error; err != nil {
 		return serializer.Response{
 			Code:  50000,
 			Msg:   "数据库连接错误",

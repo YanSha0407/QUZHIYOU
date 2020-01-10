@@ -41,7 +41,7 @@ func Getqrcode(c *gin.Context) {
 
 	content, err := ioutil.ReadAll(resp.Body)
 
-	f, _ := os.Create(dir + "/static/" + "code.png")
+	f, _ := os.Create(dir + "/static/" + "1.png")
 
 	defer f.Close()
 
@@ -52,7 +52,7 @@ func Getqrcode(c *gin.Context) {
 	c.JSON(200, gin.H{
 		"code": 0,
 		"msg":  "生成成功",
-		"data": dir + "/static/" + "code.png",
+		"data": dir + "/static/" + "1.png",
 	})
 
 }

@@ -37,6 +37,13 @@ func (Diary *Diary) FormatTime() string {
 	return ts
 }
 
+
+//格式化create
+func (Diary *Diary) FormatCretaeTime() string {
+	ts := Diary.CreatedAt.Format(timeLayoutStr) //time转string
+	return ts
+}
+
 func (Diary *Diary) FormatPhotos(photo []string) (photos []map[string]interface{}) {
 
 	for _,v:=range photo{
