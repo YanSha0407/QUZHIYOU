@@ -23,6 +23,10 @@ type ResComs struct {
 	Data   []Community `json:"data"`
 }
 
+type L1 struct {
+	List []ResComs
+}
+
 func BuildCommunity(item models.Communitys) Community {
 	return Community{
 		Id:      item.ID,
@@ -36,8 +40,9 @@ type Animals []models.Communitys
 
 //noinspection ALL
 func (a Animals) Len() int { return len(a) }
+
 //noinspection ALL
-func (s Animals ) Less(i, j int) bool {
+func (s Animals) Less(i, j int) bool {
 	a, _ := UTF82GBK(s[i].Letter)
 	b, _ := UTF82GBK(s[j].Letter)
 	bLen := len(b)
@@ -51,8 +56,9 @@ func (s Animals ) Less(i, j int) bool {
 	}
 	return true
 }
+
 //noinspection ALL
-func (a Animals ) Swap(i, j int) { a[i], a[j] = a[j], a[i] }
+func (a Animals) Swap(i, j int) { a[i], a[j] = a[j], a[i] }
 
 //UTF82GBK : transform UTF8 rune into GBK byte array
 func UTF82GBK(src string) ([]byte, error) {
@@ -69,12 +75,8 @@ func GBK2UTF8(src []byte) (string, error) {
 
 func BuildCommunitys(item []models.Communitys) []interface{} {
 
-
-
 	//强转类型
 	sort.Sort(Animals(item))
-
-
 
 	var cityList []Community
 
@@ -82,8 +84,6 @@ func BuildCommunitys(item []models.Communitys) []interface{} {
 
 		cityList = append(cityList, BuildCommunity(v))
 	}
-
-
 
 	var totalList []interface{}
 
