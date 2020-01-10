@@ -24,7 +24,7 @@ func init() {
 	PG.DB().SetMaxOpenConns(20000)
 	// debug 模式开启sql日志
 	PG.LogMode(true)
-	PG.AutoMigrate(&Community{},&Diary{})
+	PG.AutoMigrate(&Communitys{},&Diary{})
 
 	//defer PG.Close()
 }

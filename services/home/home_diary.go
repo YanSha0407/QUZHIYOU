@@ -8,6 +8,7 @@ import (
 type ListDiaryService struct {
 	Page int `form:"page" json:"page" `
 	Size int `form:"size" json:"size" `
+	CommunityId int `form:"communityId" json:"communityId" `
 }
 
 func (service *ListDiaryService) GetDiarys() serializer.Response {
@@ -25,7 +26,7 @@ func (service *ListDiaryService) GetDiarys() serializer.Response {
 
 	start := (service.Page - 1) * service.Size
 
-	if err := models.PG.Model(models.Diary{}).Count(&total).Error; err != nil {
+	if err := models.PG.Where("community_id=?",service.CommunityId).Model(models.Diary{}).Count(&total).Error; err != nil {
 		return serializer.Response{
 			Code:  50000,
 			Msg:   "数据库连接错误",
@@ -33,7 +34,7 @@ func (service *ListDiaryService) GetDiarys() serializer.Response {
 		}
 	}
 
-	if err := models.PG.Order("id desc").Limit(service.Size).Offset(start).Find(&diarys).Error; err != nil {
+	if err := models.PG.Where("community_id=?",service.CommunityId).Order("id desc").Limit(service.Size).Offset(start).Find(&diarys).Error; err != nil {
 		return serializer.Response{
 			Code:  50000,
 			Msg:   "数据库连接错误",
