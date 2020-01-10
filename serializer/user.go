@@ -21,7 +21,7 @@ func BuildUser(user *models.User) *User {
 	claims := middleware.CustomClaims{
 		ID: user.ID,
 		StandardClaims: jwt.StandardClaims{
-			ExpiresAt: time.Now().Add(24 * time.Second).Unix(), //time.Now().Add(24 * time.Hour).Unix() //15000
+			ExpiresAt: time.Now().Add(10 * time.Second).Unix(), //time.Now().Add(24 * time.Hour).Unix() //15000
 			Issuer:    "admin",
 		},
 	}

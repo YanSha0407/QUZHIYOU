@@ -2,7 +2,6 @@ package routers
 
 import (
 	"QUZHIYOU/api"
-	"QUZHIYOU/middleware"
 	"github.com/gin-gonic/gin"
 )
 
@@ -12,7 +11,7 @@ func InitRouter() *gin.Engine {
 	router := gin.Default()
 
 	router.GET("/wxlogin", api.WxLogin)
-	v1 := router.Group("v1",middleware.JWTAuth())
+	v1 := router.Group("v1")
 	{
 		//首页活动列表
 		v1.GET("/wechat/activity/selectActivityList", api.ActivityList)
@@ -24,8 +23,7 @@ func InitRouter() *gin.Engine {
 
 	//动态首页
 
-	home := router.Group("home",middleware.JWTAuth())
-
+	home := router.Group("home")
 	{
 
 		home.GET("/homediarys", api.HomeList)
