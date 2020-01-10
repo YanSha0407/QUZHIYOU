@@ -4,7 +4,6 @@ import (
 	"github.com/jinzhu/gorm"
 	"github.com/lib/pq"
 	"os"
-	"time"
 )
 
 //社区动态
@@ -21,7 +20,6 @@ type Diary struct {
 	CommentNum int
 	Address    string
 	Community  string
-	Time       time.Time
 	Photos      pq.StringArray `gorm:"type:varchar(300)[]"`
 	PhotosThumb      pq.StringArray `gorm:"type:varchar(300)[]"`
 	Tag     string
@@ -31,11 +29,6 @@ type Diary struct {
 }
 
 var timeLayoutStr = "2006/01/02 15:04"
-
-func (Diary *Diary) FormatTime() string {
-	ts := Diary.Time.Format(timeLayoutStr) //time转string
-	return ts
-}
 
 
 //格式化create
