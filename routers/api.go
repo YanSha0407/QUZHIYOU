@@ -3,12 +3,14 @@ package routers
 import (
 	"QUZHIYOU/api"
 	"github.com/gin-gonic/gin"
+	"net/http"
 )
 
 func InitRouter() *gin.Engine {
 
 	// 初始化默认路由
 	router := gin.Default()
+	router.StaticFS("/static", http.Dir("./static"))
 
 	router.GET("/wxlogin", api.WxLogin)
 	v1 := router.Group("v1")
@@ -30,6 +32,7 @@ func InitRouter() *gin.Engine {
 		home.GET("/classify", api.Classify)
 		home.GET("/ad", api.GetAd)
 		home.POST("/adddiary", api.PostAddDiary)
+		home.POST("/upload", api.PostDiaryPic)
 	}
 
 	return router
