@@ -25,7 +25,7 @@ type Diary struct {
 	Tag     string
 	Status string
 	Specialist bool
-
+	CommunityId uint
 }
 
 var timeLayoutStr = "2006/01/02 15:04"
