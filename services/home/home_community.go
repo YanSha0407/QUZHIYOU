@@ -15,13 +15,9 @@ func (service *HomeCommunityService) GetCommunity() serializer.Response {
 	models.PG.Find(&communitys)
 
 	l1 := serializer.BuildCommunitys(communitys)
-
-	maps := make(map[string]interface{})
-
-	maps["list"] = l1
 	return serializer.Response{
 		Code:  0,
-		Data:  &maps,
+		Data:  &l1,
 		Msg:   "",
 		Error: "",
 	}

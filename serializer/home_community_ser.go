@@ -12,9 +12,8 @@ import (
 //序列化1
 type Community struct {
 	Id      uint   `json:"id"`
-	Name    string `json:"name"`
-	KeyWord string `json:"key_word"`
-	Letter  string `json:"letter"`
+	Name    string `json:"cityName"`
+	KeyWord string `json:"keyword"`
 }
 
 //返回结果序列化2
@@ -23,8 +22,8 @@ type ResComs struct {
 	Data   []Community `json:"data"`
 }
 
-type L1 struct {
-	List []ResComs
+type Lists struct {
+	List []ResComs `json:"list"`
 }
 
 func BuildCommunity(item models.Communitys) Community {
@@ -32,7 +31,6 @@ func BuildCommunity(item models.Communitys) Community {
 		Id:      item.ID,
 		Name:    item.Name,
 		KeyWord: item.KeyWord,
-		Letter:  item.Letter,
 	}
 }
 
@@ -73,7 +71,7 @@ func GBK2UTF8(src []byte) (string, error) {
 	return string(bytes), err
 }
 
-func BuildCommunitys(item []models.Communitys) []interface{} {
+func BuildCommunitys(item []models.Communitys) (l1 Lists) {
 
 	//强转类型
 	sort.Sort(Animals(item))
@@ -84,8 +82,6 @@ func BuildCommunitys(item []models.Communitys) []interface{} {
 
 		cityList = append(cityList, BuildCommunity(v))
 	}
-
-	var totalList []interface{}
 
 	for i := 0; i < len(cityList); i++ {
 		//取出第一个数组
@@ -111,10 +107,10 @@ func BuildCommunitys(item []models.Communitys) []interface{} {
 		dic.Data = tempList
 
 		//添加相同的元素ABC
-		totalList = append(totalList, dic)
+		l1.List = append(l1.List, dic)
 
 	}
 
-	return totalList
+	return
 
 }
