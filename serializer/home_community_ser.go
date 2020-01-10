@@ -1,6 +1,8 @@
 package serializer
 
-import "QUZHIYOU/models"
+import (
+	"QUZHIYOU/models"
+)
 
 type Communitys struct {
 	Id      uint   `json:"id"`
@@ -8,19 +10,16 @@ type Communitys struct {
 	KeyWord string `json:"keyword"`
 }
 
-
 //序列化结果
-
 type ListCommunity struct {
-	Letter string `json:"letter"`
-	Data Communitys
+	Letter string     `json:"letter"`
+	Data   Communitys `json:"data"`
 }
-
 
 func BuildCommunity(item models.Communitys) ListCommunity {
 	return ListCommunity{
 		Letter: item.Letter,
-		Data:   Communitys{
+		Data: Communitys{
 			Id:      item.ID,
 			Name:    item.Name,
 			KeyWord: item.KeyWord,
@@ -28,11 +27,14 @@ func BuildCommunity(item models.Communitys) ListCommunity {
 	}
 }
 
-
 func BuildCommunitys(item []models.Communitys) (list []ListCommunity) {
 
-	for _,v:=range item{
-		list = append(list, BuildCommunity(v))
+	//定义分字母数组
+	for _, v := range item {
+		if v.Letter == "Y" {
+			list = append(list, BuildCommunity(v))
+		}
 	}
+
 	return
 }
