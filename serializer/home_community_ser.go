@@ -18,7 +18,6 @@ type ListCommunity struct {
 
 
 func BuildCommunity(item models.Communitys) ListCommunity {
-
 	return ListCommunity{
 		Letter: item.Letter,
 		Data:   Communitys{
@@ -27,5 +26,13 @@ func BuildCommunity(item models.Communitys) ListCommunity {
 			KeyWord: item.KeyWord,
 		},
 	}
+}
 
+
+func BuildCommunitys(item []models.Communitys) (list []ListCommunity) {
+
+	for _,v:=range item{
+		list = append(list, BuildCommunity(v))
+	}
+	return
 }
