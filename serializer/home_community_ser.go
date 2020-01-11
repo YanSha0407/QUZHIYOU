@@ -33,6 +33,7 @@ func BuildCommunity(item models.Communitys) Community {
 		Id:      item.ID,
 		Name:    item.Name,
 		KeyWord: item.KeyWord,
+		Letter:item.Letter,
 	}
 }
 
