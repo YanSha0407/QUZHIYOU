@@ -73,16 +73,20 @@ func GBK2UTF8(src []byte) (string, error) {
 	return string(bytes), err
 }
 
-func BuildCommunitys(item []models.Communitys) (l1 Lists) {
+func BuildCommunitys(item []models.Communitys) (list Lists) {
 
 	//强转类型
 	sort.Sort(Animals(item))
 
+	//格式化后数据
 	var cityList []Community
-	dic := ResComs{}
+
 	for _, v := range item {
 		cityList = append(cityList, BuildCommunity(v))
 	}
+
+	//待封装数据
+	res := ResComs{}
 
 	for i := 0; i < len(cityList); i++ {
 		//取出第一个数组
@@ -91,26 +95,24 @@ func BuildCommunitys(item []models.Communitys) (l1 Lists) {
 		var tempList []Community
 		tempList = append(tempList, item)
 
+		//循环比较余下的数据
 		for j := i + 1; j < len(cityList); j++ {
 			temp := cityList[j]
-
+			//如果相等就扔进tempList []
 			if temp.Letter == item.Letter {
 				tempList = append(tempList, temp)
+				//根据下标删除已经加入的元素
 				cityList = append(cityList[:j], cityList[j+1:]...)
+				//移后一位避免跳过当前位置
 				j = j - 1
 			}
-
 		}
 
-
-
-	
-
-		dic.Letter = item.Letter
-		dic.Data = tempList
-
-		//添加相同的元素ABC
-		l1.List = append(l1.List, dic)
+		//外层循环赋值 一个letter 和多个[]Community
+		res.Letter = item.Letter
+		res.Data = tempList
+		//每次循环加入待返回数组
+		list.List = append(list.List, res)
 
 	}
 
