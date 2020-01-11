@@ -81,7 +81,6 @@ func BuildCommunitys(item []models.Communitys) (l1 Lists) {
 	var cityList []Community
 
 	for _, v := range item {
-
 		cityList = append(cityList, BuildCommunity(v))
 	}
 
