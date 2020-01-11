@@ -15,7 +15,7 @@ type Community struct {
 	Id      uint   `json:"id"`
 	Name    string `json:"cityName"`
 	KeyWord string `json:"keyword"`
-	Letter  string `json:"letter"`
+	Letter  string `json:"-"`
 }
 
 //返回结果序列化2
