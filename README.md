@@ -1,3 +1,3 @@
-# QUZHIYOU
-QZY golang 
+# 开源微信小程序BBS
+
    
