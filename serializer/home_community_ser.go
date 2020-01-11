@@ -79,7 +79,7 @@ func BuildCommunitys(item []models.Communitys) (l1 Lists) {
 	sort.Sort(Animals(item))
 
 	var cityList []Community
-
+	dic := ResComs{}
 	for _, v := range item {
 		cityList = append(cityList, BuildCommunity(v))
 	}
@@ -102,7 +102,9 @@ func BuildCommunitys(item []models.Communitys) (l1 Lists) {
 
 		}
 
-		dic := ResComs{}
+
+
+	
 
 		dic.Letter = item.Letter
 		dic.Data = tempList
