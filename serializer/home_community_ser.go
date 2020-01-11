@@ -3,6 +3,7 @@ package serializer
 import (
 	"QUZHIYOU/models"
 	"bytes"
+	"fmt"
 	"golang.org/x/text/encoding/simplifiedchinese"
 	"golang.org/x/text/transform"
 	"io/ioutil"
@@ -75,6 +76,9 @@ func BuildCommunitys(item []models.Communitys) (l1 Lists) {
 
 	//强转类型
 	sort.Sort(Animals(item))
+
+
+	fmt.Println(item,"item-----------")
 
 	var cityList []Community
 
