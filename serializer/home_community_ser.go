@@ -7,7 +7,6 @@ import (
 	"golang.org/x/text/encoding/simplifiedchinese"
 	"golang.org/x/text/transform"
 	"io/ioutil"
-	"sort"
 )
 
 //序列化1
@@ -15,6 +14,7 @@ type Community struct {
 	Id      uint   `json:"id"`
 	Name    string `json:"cityName"`
 	KeyWord string `json:"keyword"`
+	Letter  string `json:"-"`
 }
 
 //返回结果序列化2
@@ -75,7 +75,7 @@ func GBK2UTF8(src []byte) (string, error) {
 func BuildCommunitys(item []models.Communitys) (l1 Lists) {
 
 	//强转类型
-	sort.Sort(Animals(item))
+	//sort.Sort(Animals(item))
 
 
 	fmt.Println(item,"item-----------")
